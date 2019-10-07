@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Applic
 {
+    const STATUS_NEW = 0;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
