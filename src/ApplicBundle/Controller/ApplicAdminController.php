@@ -2,23 +2,31 @@
 
 namespace ApplicBundle\Controller;
 
-use AppBundle\Interfaces\MyController;
+use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Interfaces\MyJsonResponse;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\VocabApplicStatus;
+use MobilePushBundle\Sender\PushAllMobilePushSender;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Date;
 
-class ApplicAdminController extends MyController
+class ApplicAdminController extends MyAdminController
 {
+    const CRON_KEY = '1234567';
+
     /**
      * Экшен: Получение списка всех заявок
      */
-    public function getAllApplicsAction()
+    public function viewAllAction()
     {
         $applicRepository = $this->getEntityManager()->getRepository(Applic::class);
         /** @var Applic $applic */
         $applics = $applicRepository->findAll();
 
-        return $this->render('@Applic/Admin/all.item.html.twig', $applics);
+        return $this->render('@Applic/Admin/view.all.html.twig', [
+            'applics' => $applics
+        ]);
     }
 
     /**
@@ -48,5 +56,46 @@ class ApplicAdminController extends MyController
         $applic->setStatus($status);
 
         return new MyJsonResponse(true, 'Статус у заявки #'. $applic->getId() .' изменен!');
+    }
+
+    public function cronNoProcessApplicsAction($key)
+    {
+        if ($key == self::CRON_KEY) {
+            $this->statRefresh();
+
+            $msg = 'Под номерами: ';
+
+            $applics = $this->getStat()->getNoProcessApplics();
+
+            $curDateTime = new \DateTime();
+
+            if (!(count($applics) > 0)) {
+                return new JsonResponse(['isSend' => false]);
+            }
+
+            $isSend = false;
+            /** @var Applic $applic */
+            foreach ($applics as $applic) {
+                if ($applic->getCreated()->diff($curDateTime)->h <= 24) {
+                    continue;
+                }
+                $isSend = true;
+                if (next($applics)) {
+                    $msg .= $applic->getId() . ', ';
+                }
+                {
+                    $msg .= $applic->getId();
+                }
+            }
+
+            if ($isSend) {
+                $pushSender = new PushAllMobilePushSender();
+                $pushSender->push('Необработанные заявки:', $msg);
+            }
+
+            return new JsonResponse(['isSend' => $isSend]);
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 }

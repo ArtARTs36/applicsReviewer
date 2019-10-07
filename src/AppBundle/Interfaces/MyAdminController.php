@@ -1,0 +1,66 @@
+<?php
+
+namespace AppBundle\Interfaces;
+
+use AppBundle\Entity\Stat;
+use ApplicBundle\Entity\Applic;
+use Symfony\Component\HttpFoundation\Response;
+
+class MyAdminController extends MyController
+{
+    /** @var Stat Stat */
+    private $stat = null;
+
+    public function __construct()
+    {
+
+    }
+
+    public function statRefresh()
+    {
+        $applicRepo = $this->getDoctrine()->getManager()->getRepository(Applic::class);
+        $applics = $applicRepo->findAll();
+
+        $countApplics = count($applics);
+
+        $countNoProcessApplics = 0;
+        $noProcessApplics = [];
+        /** @var Applic $applic */
+        foreach($applics as $applic) {
+            if ($applic->getStatus()->getId() == Applic::STATUS_NEW) {
+                $countNoProcessApplics++;
+                $noProcessApplics[] = $applic;
+            }
+        }
+
+        $newStat = new Stat();
+        $newStat->setCountApplics($countApplics);
+        $newStat->setCountNoProcessApplics($countNoProcessApplics);
+        $newStat->setCreated(new \DateTime());
+
+        $this->getEntityManager()->persist($newStat);
+        $this->getEntityManager()->flush();
+
+        $newStat->setNoProcessApplics($noProcessApplics);
+
+        $this->stat = $newStat;
+    }
+
+    public function getStat()
+    {
+        if ($this->stat !== null) {
+            return $this->stat;
+        }
+
+        $this->statRefresh();
+
+        return $this->stat;
+    }
+
+    public function render($view, array $parameters = [], Response $response = null)
+    {
+        $parameters['stat'] = $this->getStat();
+
+        return parent::render($view, $parameters, $response);
+    }
+}

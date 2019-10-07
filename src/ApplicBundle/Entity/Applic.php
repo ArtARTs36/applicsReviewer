@@ -72,7 +72,7 @@ class Applic
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getCreated()
     {

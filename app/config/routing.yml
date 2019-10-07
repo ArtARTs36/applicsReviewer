@@ -1,3 +1,9 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+admin:
+    resource: '@AppBundle/Resources/config/routing.yml'
+
+admin_applics:
+    resource: '@ApplicBundle/Resources/config/routing.yml'

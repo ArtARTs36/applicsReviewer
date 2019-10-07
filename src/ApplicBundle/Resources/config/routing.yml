@@ -1,0 +1,7 @@
+admin_applics_all:
+  path: /admin/applics/
+  defaults: { _controller: ApplicBundle:ApplicAdmin:viewAll}
+
+cron_no_process_applics:
+  path: /admin/cron/noProcessApplics/{key}/
+  defaults: { _controller: ApplicBundle:ApplicAdmin:cronNoProcessApplics}

@@ -1,4 +1,68 @@
-{% for applic in applics %}
-{{ loop.index }}
-    {{ applic.clientName }}
-{% endfor %}
+{% extends 'admin/main.html.twig' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="main-content-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Заявки</h4>
+                            <div class="data-tables datatable-primary">
+                                <table id="dataTable2" class="text-center">
+                                    <thead class="text-capitalize">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Имя клиента</th>
+                                        <th>Телефон</th>
+                                        <th>Email</th>
+                                        <th>Сообщение</th>
+                                        <th>Статус</th>
+                                        <th>Дата</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for applic in applics %}
+                                        {% if applic.status.id == 2 %}
+                                            {% set color = 'green' %}
+                                        {% elseif(applic.status.id == 1) %}
+                                            {% set color = 'orange' %}
+                                            {% else %}
+                                            {% set color = 'black' %}
+                                        {% endif %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ applic.clientName }}</td>
+                                            <td>{{ applic.clientPhone }}</td>
+                                            <td>{{ applic.clientMail }}</td>
+                                            <td>{{ applic.message }}</td>
+                                            <td><span style="color:{{ color }}">{{ applic.status.name }}</span></td>
+                                            <td>{{ applic.created | date('d.m.y H:i:s') }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+{% endblock %}
