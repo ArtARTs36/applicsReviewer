@@ -7,7 +7,6 @@ use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\VocabApplicStatus;
 use ApplicBundle\Form\AddApplicForm;
 use ApplicBundle\Service\ApplicService;
-use http\Env;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +15,8 @@ class DefaultController extends MyController
 {
     /**
      * @Route("/", name="homepage")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function indexAction(Request $request)

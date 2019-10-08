@@ -5,3 +5,11 @@ admin_index:
 admin_settings:
   path: /admin/settings/
   defaults: { _controller: AppBundle:Admin:settings}
+
+admin_court_practices_all:
+  path: /admin/practices/
+  defaults: { _controller: AppBundle:Admin:courtPracticeViewAll}
+
+admin_court_practices_add:
+  path: /admin/practices/add
+  defaults: { _controller: AppBundle:Admin:courtPracticeAdd}

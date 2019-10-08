@@ -114,6 +114,13 @@
                                         <li><a href="#">Статусы</a></li>
                                     </ul>
                                 </li>
+                                <li class="{% if currentPath == path('admin_court_practices_all') or currentPath == path('admin_court_practices_add') %}active{% endif %}">
+                                    <a href="javascript:void(0)"><i class="ti-layout-menu-v"></i><span>Судебные практики</span></a>
+                                    <ul class="submenu">
+                                        <a href="{{ path('admin_court_practices_all') }}"><i class="ti-layout-menu-v"></i><span>Список</span></a>
+                                        <a href="{{ path('admin_court_practices_add') }}"><i class="ti-plus"></i><span>Добавить</span></a>
+                                    </ul>
+                                </li>
                                 <li class="{% if currentPath == path('admin_settings') %}active{% endif %}">
                                     <a href="{{ path('admin_settings') }}"><i class="ti-settings"></i><span>Настройки</span></a>
                                 </li>
