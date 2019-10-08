@@ -1,6 +1,13 @@
 {% extends 'admin/main.html.twig' %}
 
+{% form_theme formPushAllSettings with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
 {% block content %}
+    <script>
+        function cronRun(link) {
+            $('body').append('<iframe src="' + link + '"></iframe>');
+        }
+    </script>
     <div class="main-content-inner">
         <div class="container">
             <div class="row">
@@ -12,13 +19,17 @@
                                     <h4 class="header-title">Подключение к PUSH каналу</h4>
                                     <p class="text-muted font-14 mb-4"></p>
                                     <div class="form-group">
-                                        <label for="push-link-feed-input" class="col-form-label">Чтобы подключить к каналу нужно перейти по ссылке:</label>
+                                        <label for="push-link-feed-input" class="col-form-label">Чтобы подключить к
+                                            каналу нужно перейти по ссылке:</label>
                                         <input class="form-control" type="text" value="{{ pushLinkFeed }}"
                                                id="push-link-feed-input">
                                     </div>
+
                                     <div class="form-group">
                                         <a href="{{ pushLinkFeed }}" target="_blank">
-                                            <button type="button" class="btn btn-primary btn-lg btn-block">Перейти по ссылке</button>
+                                            <button type="button" class="btn btn-primary btn-lg btn-block">Перейти по
+                                                ссылке
+                                            </button>
                                         </a>
                                     </div>
                                 </div>
@@ -53,16 +64,25 @@
                         <div class="col-12 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title">Настройки подключения к PushAll</h4>
+                                    <h4 class="header-title">Задачи для планировщика задач (CRON)</h4>
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Ключ для API</label>
-                                        <input class="form-control" type="text" value="{{ pushAllApiKey }}"
-                                               id="example-text-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">ID приложения</label>
-                                        <input class="form-control" type="text" value="{{ pushAllApplicationId }}"
-                                               id="example-text-input">
+                                        <label for="example-text-input" class="col-form-label">
+                                            Поиск необработанных заявок, отправка уведомления
+                                        </label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text"
+                                                   value="{{ path('cron_no_process_applics', {'key': cronKey}) }}"
+                                                   id="example-text-input">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <a href="{{ path('cron_no_process_applics', {'key': cronKey}) }}"
+                                               target="_blank">
+                                                <button type="button" class="btn btn-primary btn-lg btn-block">Выполнить
+                                                    сейчас
+                                                </button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -77,20 +97,17 @@
                         <div class="col-12 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title">Задачи для планировщика задач (CRON)</h4>
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">
-                                            Поиск необработанных заявок, отправка уведомления
-                                        </label>
-                                        <input class="form-control" type="text" value="{{ path('cron_no_process_applics', {'key': cronKey}) }}"
-                                               id="example-text-input">
-                                    </div>
+                                    <h4 class="header-title">Настройки подключения к PushAll</h4>
+                                    {{ form_start(formPushAllSettings) }}
+                                    {{ form_widget(formPushAllSettings) }}
+                                    {{ form_end(formPushAllSettings) }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>

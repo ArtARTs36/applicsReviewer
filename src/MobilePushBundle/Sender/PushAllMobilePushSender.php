@@ -95,7 +95,11 @@ class PushAllMobilePushSender extends MobilePushInterface
             return null;
         }
 
-        if ($result['success'] == 1) {
+        if (isset($result['error']) && !empty($result['error'])) {
+            return false;
+        }
+
+        if (isset($result['success']) && $result['success'] == 1) {
             return true;
         }
 

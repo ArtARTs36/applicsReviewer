@@ -9,6 +9,7 @@ class SiteConfig
     const PARAM_PUSHALL_API_KEY = 'pushall_api_key';
     const PARAM_PUSHALL_APPLICATION_ID = 'pushall_application_id';
     const PARAM_PUSHALL_FEED_LINK = 'pushall_feed_link';
+    const PARAM_STAT_REFRESH = 'stat_refresh';
 
     private $config;
 

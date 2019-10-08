@@ -4,12 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CourtPractice;
 use AppBundle\Form\AddCourtPracticesForm;
+use AppBundle\Form\EditPushAllSettingsForm;
 use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Service\SiteConfig;
 use ApplicBundle\Controller\ApplicAdminController;
 use ApplicBundle\Entity\Applic;
 use Symfony\Component\HttpFoundation\Request;
-use MobilePushBundle\Sender\PushAllMobilePushSender;
 
 class AdminController extends MyAdminController
 {
@@ -59,13 +59,56 @@ class AdminController extends MyAdminController
         ]);
     }
 
-    public function settingsAction()
+    public function settingsAction(Request $request)
     {
+        $formPushAllSettings = $this->genFormPushAll($request);
+
         return $this->render('admin/settings.html.twig', [
             'cronKey' => ApplicAdminController::CRON_KEY,
             'pushLinkFeed' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_FEED_LINK),
-            'pushAllApiKey' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_API_KEY),
-            'pushAllApplicationId' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_APPLICATION_ID)
+            'formPushAllSettings' => $formPushAllSettings->createView()
         ]);
+    }
+
+    public function genFormPushAll(Request $request)
+    {
+        $formPushAllSettings = $this->createForm(EditPushAllSettingsForm::class,
+            [
+                EditPushAllSettingsForm::FIELD_API_KEY => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_API_KEY),
+
+                EditPushAllSettingsForm::FIELD_APPLICATION_ID =>
+                    $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_APPLICATION_ID),
+
+                EditPushAllSettingsForm::FIELD_FEED_LINK =>
+                    $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_FEED_LINK)
+            ]
+        );
+
+        $formPushAllSettings->handleRequest($request);
+
+        if ($formPushAllSettings->isSubmitted() && $formPushAllSettings->isValid()) {
+            $data = $formPushAllSettings->getViewData();
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_PUSHALL_API_KEY,
+                $data[EditPushAllSettingsForm::FIELD_API_KEY]
+            );
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_PUSHALL_APPLICATION_ID,
+                $data[EditPushAllSettingsForm::FIELD_APPLICATION_ID]
+            );
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_PUSHALL_FEED_LINK,
+                $data[EditPushAllSettingsForm::FIELD_FEED_LINK]
+            );
+
+            $this->getConfig()->save();
+
+            $this->redirectToRoute('admin_settings');
+        }
+
+        return $formPushAllSettings;
     }
 }

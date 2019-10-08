@@ -8,8 +8,6 @@ use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\VocabApplicStatus;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\Date;
 
 class ApplicAdminController extends MyAdminController
 {
@@ -68,6 +66,7 @@ class ApplicAdminController extends MyAdminController
             $applics = $this->getStat()->getNoProcessApplics();
 
             $curDateTime = new \DateTime();
+            $curTime = time();
 
             if (!(count($applics) > 0)) {
                 return new JsonResponse(['isSend' => false]);
@@ -76,7 +75,7 @@ class ApplicAdminController extends MyAdminController
             $isSend = false;
             /** @var Applic $applic */
             foreach ($applics as $applic) {
-                if ($applic->getCreated()->diff($curDateTime)->h <= 24) {
+                if ($curTime - $applic->getCreated()->getTimestamp() <= 10 * 60) {
                     continue;
                 }
                 $isSend = true;
@@ -90,7 +89,7 @@ class ApplicAdminController extends MyAdminController
 
             if ($isSend) {
                 $pushSender = new PushAllMobilePushSender();
-                $pushSender->push('Необработанные заявки:', $msg);
+                $isSend = $pushSender->push('Необработанные заявки:', $msg);
             }
 
             return new JsonResponse(['isSend' => $isSend]);
