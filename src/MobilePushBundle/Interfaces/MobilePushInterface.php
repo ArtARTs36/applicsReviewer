@@ -2,9 +2,18 @@
 
 namespace MobilePushBundle\Interfaces;
 
+use AppBundle\Service\SiteConfig;
+
 abstract class MobilePushInterface
 {
     const IS_SOUND = true;
+
+    protected $siteConfig;
+
+    public function __construct()
+    {
+        $this->siteConfig = new SiteConfig();
+    }
 
     /**
      * Отправка PUSH-уведомления

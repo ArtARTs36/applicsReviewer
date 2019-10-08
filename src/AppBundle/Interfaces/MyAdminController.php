@@ -11,11 +11,6 @@ class MyAdminController extends MyController
     /** @var Stat Stat */
     private $stat = null;
 
-    public function __construct()
-    {
-
-    }
-
     public function statRefresh()
     {
         $applicRepo = $this->getDoctrine()->getManager()->getRepository(Applic::class);

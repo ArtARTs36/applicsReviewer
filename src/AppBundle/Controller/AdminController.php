@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\CourtPractice;
 use AppBundle\Form\AddCourtPracticesForm;
 use AppBundle\Interfaces\MyAdminController;
+use AppBundle\Service\SiteConfig;
 use ApplicBundle\Controller\ApplicAdminController;
 use ApplicBundle\Entity\Applic;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,7 +63,9 @@ class AdminController extends MyAdminController
     {
         return $this->render('admin/settings.html.twig', [
             'cronKey' => ApplicAdminController::CRON_KEY,
-            'pushLinkFeed' => PushAllMobilePushSender::LINK_FEED
+            'pushLinkFeed' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_FEED_LINK),
+            'pushAllApiKey' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_API_KEY),
+            'pushAllApplicationId' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_APPLICATION_ID)
         ]);
     }
 }

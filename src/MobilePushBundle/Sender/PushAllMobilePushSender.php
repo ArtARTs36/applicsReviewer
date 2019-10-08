@@ -2,16 +2,25 @@
 
 namespace MobilePushBundle\Sender;
 
+use AppBundle\Service\SiteConfig;
 use MobilePushBundle\Interfaces\MobilePushInterface;
 
 class PushAllMobilePushSender extends MobilePushInterface
 {
     const LINK_FEED = 'https://pushall.ru/?fs=5195&key=5bad8897b8ca87eab167971d94b55165';
-    const API_KEY = '309e2dfe9b87ec8ef58c4b3f423e9f9a';
-    const APPLICATION_ID = "91261";
     const PRIORITY = 1;
 
+    private $apiKey;
     private $answer;
+    private $applicationId;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->apiKey= $this->siteConfig->getValue(SiteConfig::PARAM_PUSHALL_API_KEY);
+        $this->applicationId = $this->siteConfig->getValue(SiteConfig::PARAM_PUSHALL_APPLICATION_ID);
+    }
 
     /**
      * Входная точка:
@@ -28,8 +37,8 @@ class PushAllMobilePushSender extends MobilePushInterface
     {
         $array = [
             "type" => "self",
-            "id" => self::APPLICATION_ID,
-            "key" => self::API_KEY,
+            "id" => $this->applicationId,
+            "key" => $this->apiKey,
             "text" => $message,
             "title" => $title,
             "priority" => $this->getPriority(),
