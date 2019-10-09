@@ -107,10 +107,11 @@
                                 <li class="{% if currentPath == path('admin_applics_all') %}active{% endif %}">
                                     <a href="{{ path('admin_applics_all') }}"><i class="ti-layout-sidebar-left"></i><span>Заявки</span></a>
                                 </li>
-                                <li>
+                                <li class="{% if currentPath == path('admin_vocab_bad_clients_all') or currentPath == path('admin_vocab_bad_clients_add') %}active{% endif %}">
                                     <a href="javascript:void(0)"><i class="ti-layers-alt"></i><span>Справочники</span></a>
                                     <ul class="submenu">
-                                        <li><a href="#">Плохие клиенты</a></li>
+                                        <li><a href="{{ path('admin_vocab_bad_clients_all') }}">Список плохих клиентов</a></li>
+                                        <li><a href="{{ path('admin_vocab_bad_clients_add') }}">Добавить</a></li>
                                         <li><a href="#">Статусы</a></li>
                                     </ul>
                                 </li>

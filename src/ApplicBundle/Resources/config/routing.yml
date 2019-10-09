@@ -2,6 +2,14 @@ admin_applics_all:
   path: /admin/applics/
   defaults: { _controller: ApplicBundle:ApplicAdmin:viewAll}
 
+admin_vocab_bad_clients_add:
+  path: /admin/vocab/bad-clients/add
+  defaults: { _controller: ApplicBundle:VocabAdmin:addBadClient}
+
+admin_vocab_bad_clients_all:
+  path: /admin/vocab/bad-clients
+  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllBadClient}
+
 cron_no_process_applics:
   path: /admin/cron/noProcessApplics/{key}/
   defaults: { _controller: ApplicBundle:ApplicAdmin:cronNoProcessApplics}
