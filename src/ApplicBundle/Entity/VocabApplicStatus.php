@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class VocabApplicStatus
 {
+    const MAX_NUMBER = 2;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

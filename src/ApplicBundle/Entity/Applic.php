@@ -168,7 +168,7 @@ class Applic
     }
 
     /**
-     * @return mixed
+     * @return VocabApplicStatus
      */
     public function getStatus()
     {

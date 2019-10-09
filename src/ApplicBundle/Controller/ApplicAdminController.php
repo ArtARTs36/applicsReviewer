@@ -8,6 +8,7 @@ use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\VocabApplicStatus;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApplicAdminController extends MyAdminController
 {
@@ -28,32 +29,54 @@ class ApplicAdminController extends MyAdminController
     }
 
     /**
-     * Экшен: Обновление заявки
-     * @param $applicId
-     * @param $statusId
-     * @return MyJsonResponse|bool
+     * Перевод заявки на следующий статус
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function updateApplicStatus($applicId, $statusId)
+    public function applicNextStatusAction(Request $request)
     {
-        if (!($applicId > 0) || !($statusId > 0)) {
-            return false;
+        $applicId = $request->get('applicId');
+        if (!($applicId)) {
+            return MyJsonResponse::make(false, 'Не указана заявка!');
         }
+
+        $applicRepo = $this->getEntityManager()->getRepository(Applic::class);
+        /** @var Applic $applic */
+        $applic = $applicRepo->find($applicId);
+        if ($applic === null) {
+            return MyJsonResponse::make(false, 'Заявка не найдена!');
+        }
+
+        /** @var VocabApplicStatus $curStatus */
+        $curStatus = $applic->getStatus();
+        if ($curStatus->getId() == VocabApplicStatus::MAX_NUMBER) {
+            return MyJsonResponse::make(false, 'Заявка уже на максимальном этапе!');
+        }
+
+        $newStatusId = $curStatus->getId() + 1;
 
         $statusRepo = $this->getEntityManager()->getRepository(VocabApplicStatus::class);
-        /** @var VocabApplicStatus $status */
-        $status = $statusRepo->find($statusId);
+        /** @var VocabApplicStatus $newStatus */
+        $newStatus = $statusRepo->find($newStatusId);
 
-        if ($status->getId() != $statusId) {
-            return false;
+        $applic->setStatus($newStatus);
+
+        try {
+            $this->getEntityManager()->persist($applic);
+            $this->getEntityManager()->flush($applic);
+        } catch (\Exception $exception) {
+            return MyJsonResponse::make(false, 'Проблемы с базой данных');
         }
 
-        $applicRepository = $this->getEntityManager()->getRepository(Applic::class);
-        /** @var Applic $applic */
-        $applic = $applicRepository->find($applicId);
-
-        $applic->setStatus($status);
-
-        return new MyJsonResponse(true, 'Статус у заявки #'. $applic->getId() .' изменен!');
+        return MyJsonResponse::make(
+            true,
+            null,
+            [
+                'oldStatus' => $curStatus->getName(),
+                'newStatus' => $newStatus->getName()
+            ]
+        );
     }
 
     public function cronNoProcessApplicsAction($key)

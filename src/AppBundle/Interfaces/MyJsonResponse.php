@@ -6,18 +6,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MyJsonResponse
 {
-    private $success;
-
-    private $msg;
-
-    public function __construct($success, $msg)
+    static public function make($success, $msg = null, $objects = null)
     {
-        $this->success = $success;
-        $this->msg = $msg;
-
         return new JsonResponse([
-        'success' => $this->success,
-        'msg' => $this->msg
-    ]);
+            'success' => $success,
+            'msg' => $msg,
+            'obj' => $objects
+        ]);
     }
 }

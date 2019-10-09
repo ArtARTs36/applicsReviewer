@@ -8,6 +8,94 @@
 {% endblock %}
 
 {% block content %}
+    <script>
+        function modalInfo(title, message)
+        {
+            $('body').append('<div class="modal fade" id="modalInfo">\n' +
+                '    <div class="modal-dialog modal-dialog-centered" role="document">\n' +
+                '        <div class="modal-content">\n' +
+                '            <div class="modal-header">\n' +
+                '                <h5 class="modal-title">\n' +
+                '                   '+ title +' \n' +
+                '                </h5>\n' +
+                '                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>\n' +
+                '            </div>\n' +
+                '            <div class="modal-body">\n' +
+                '                    '+ message +'\n' +
+                '            </div>\n' +
+                '            <div class="modal-footer">\n' +
+                '                <input type="hidden" name="modalTransferBadClient-applic-id" value=""/>\n' +
+                '                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>');
+
+            $('#modalInfo').modal();
+        }
+
+        function transferBadClient(applicId) {
+            $('#modalTransferBadClient #modalTransferBadClient-applic-id').html(applicId);
+            $('input[name="modalTransferBadClient-applic-id"]').val(applicId);
+        }
+        function transferBadClientAction() {
+            var applicId = $('input[name="modalTransferBadClient-applic-id"]').val();
+            var comment = $('textarea[name="modalTransferBadClient-comment"]').val();
+
+            $.post('{{ path("admin_vocab_bad_clients_transfer") }}', {
+                applicId: applicId,
+                comment: comment
+            }).done(function (data) {
+                $('#modalTransferBadClient').modal('hide');
+                if (data.success === true) {
+                    modalInfo('Результат перенесения в черный список', 'Клиент успешно перенесен в черный список');
+                } else {
+                    modalInfo('Результат перенесения в черный список', 'Клиент уже есть в черном списке');
+                }
+            });
+        }
+
+        function applicNextStatus(applicId)
+        {
+            $.post('{{ path("admin_applics_status_next_status") }}', {
+                applicId: applicId
+            }).done(function (data) {
+                if (data.success === true) {
+                    modalInfo(
+                        'Результат перевода процедуры на следующий статус', 'Заявка успешно переведена на следующий статус. ' + '\n<br/>' +
+                        ' Предыдущий статус: "' + data.obj.oldStatus + '"\n <br/> \n' +
+                            'Новый статус: "' + data.obj.newStatus +'"'
+                    );
+                } else {
+                    modalInfo('Результат перевода процедуры на следующий статус', data.msg);
+                }
+            });
+        }
+    </script>
+<div class="modal fade" id="modalTransferBadClient">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Перенесение клиента по заявке №<span id="modalTransferBadClient-applic-id"></span> в черный список
+                </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label required" for="add_court_practices_form_content">Причина:</label>
+                        <textarea name="modalTransferBadClient-comment" required="required" class="form-control">Test</textarea>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="modalTransferBadClient-applic-id" value=""/>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick="transferBadClientAction()">Перенести</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="page-container">
     <div class="main-content-inner">
         <div class="container">
@@ -27,6 +115,7 @@
                                         <th>Сообщение</th>
                                         <th>Статус</th>
                                         <th>Дата</th>
+                                        <th>Действия</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,6 +135,15 @@
                                             <td>{{ applic.message }}</td>
                                             <td><span style="color:{{ color }}">{{ applic.status.name }}</span></td>
                                             <td>{{ applic.created | date('d.m.y H:i:s') }}</td>
+                                            <td>
+                                                {% if applic.status.id != 2 %}
+                                                <a onclick="applicNextStatus({{ applic.id }})" style="color:green"
+                                                   title="Перевести заявку на следующий статус" class="ti-arrow-circle-right"></a>
+                                                {% endif %}
+
+                                                <a href="javascript;" onclick="transferBadClient({{ applic.id }})" style="color:red"
+                                                   title="Перевести клиента в черный список" class="ti-na" data-toggle="modal" data-target="#modalTransferBadClient"></a>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>

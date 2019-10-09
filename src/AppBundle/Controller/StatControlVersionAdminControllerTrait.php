@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ConfigControlVersion;
-use AppBundle\Service\SiteConfig;
 use Doctrine\ORM\EntityRepository;
 
 trait StatControlVersionAdminControllerTrait
@@ -14,17 +13,18 @@ trait StatControlVersionAdminControllerTrait
         $configRepo = $this->getEntityManager()->getRepository(ConfigControlVersion::class);
         $configs = $configRepo->findAll();
 
-        $settings = '';
+        $settings = [];
 
         /** @var ConfigControlVersion $config */
         foreach ($configs as $config) {
-            foreach (json_decode($config->getSettings(), true) as $key => $value) {
-                $settings .= $this->getConfig()->getDescription($key) . ': '. $value;
+            $arrSettings = json_decode($config->getSettings(), true);
+            foreach ($arrSettings as $key => $value) {
+                $settings[$this->getConfig()->getDescription($key)] = $value;
             }
 
             $config->setRead($settings);
 
-            $settings = '';
+            $settings = [];
         }
 
         return $configs;
