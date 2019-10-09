@@ -6,6 +6,10 @@ admin_settings:
   path: /admin/settings/
   defaults: { _controller: AppBundle:Admin:settings}
 
+admin_settings_revert:
+  path: /admin/settings/revert/{id}/
+  defaults: { _controller: AppBundle:Admin:revertConfig}
+
 admin_court_practices_all:
   path: /admin/practices/
   defaults: { _controller: AppBundle:Admin:courtPracticeViewAll}

@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends MyAdminController
 {
+    use StatControlVersionAdminControllerTrait;
+
     public function indexAction()
     {
         $applicRepo = $this->getEntityManager()->getRepository(Applic::class);
@@ -62,11 +64,13 @@ class AdminController extends MyAdminController
     public function settingsAction(Request $request)
     {
         $formPushAllSettings = $this->genFormPushAll($request);
+        $configVersions = $this->getAllConfig();
 
         return $this->render('admin/settings.html.twig', [
             'cronKey' => ApplicAdminController::CRON_KEY,
             'pushLinkFeed' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_FEED_LINK),
-            'formPushAllSettings' => $formPushAllSettings->createView()
+            'configVersions' => $configVersions,
+            'formPushAllSettings' => $formPushAllSettings->createView(),
         ]);
     }
 
@@ -104,6 +108,7 @@ class AdminController extends MyAdminController
                 $data[EditPushAllSettingsForm::FIELD_FEED_LINK]
             );
 
+            $this->getConfig()->setEntityManager($this->getEntityManager());
             $this->getConfig()->save();
 
             $this->redirectToRoute('admin_settings');

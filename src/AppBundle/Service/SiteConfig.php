@@ -2,6 +2,9 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\ConfigControlVersion;
+use Doctrine\Common\Persistence\ObjectManager;
+
 class SiteConfig
 {
     const FILE_CONFIG = '../app/config/my_config.json';
@@ -11,11 +14,24 @@ class SiteConfig
     const PARAM_PUSHALL_FEED_LINK = 'pushall_feed_link';
     const PARAM_STAT_REFRESH = 'stat_refresh';
 
+    public $descriptionParams = [
+        self::PARAM_PUSHALL_API_KEY => 'PushAll: Ключ для API',
+        self::PARAM_PUSHALL_APPLICATION_ID => 'PushAll: ID приложения',
+        self::PARAM_PUSHALL_FEED_LINK => 'PushAll: Пригласительная ссылка',
+        self::PARAM_STAT_REFRESH => 'Обновление статистики (интервал)',
+    ];
+
     private $config;
 
-    public function __construct()
+    /**
+     * @var ObjectManager
+     */
+    private $entityManager = null;
+
+    public function __construct(ObjectManager $entityManager = null)
     {
         $this->config = $this->getFileConfig();
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -63,7 +79,17 @@ class SiteConfig
      */
     public function save()
     {
-        file_put_contents(self::FILE_CONFIG, json_encode($this->config));
+        $jsonConfig = json_encode($this->config);
+
+        file_put_contents(self::FILE_CONFIG, $jsonConfig);
+
+        if ($this->entityManager !== null) {
+            $statControlVersion = new ConfigControlVersion();
+            $statControlVersion->setSettings($jsonConfig);
+
+            $this->entityManager->persist($statControlVersion);
+            $this->entityManager->flush($statControlVersion);
+        }
     }
 
     /**
@@ -82,5 +108,27 @@ class SiteConfig
 
             return [];
         }
+    }
+
+    public function setEntityManager(ObjectManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function revert($config)
+    {
+        $config = json_decode($config, true);
+        if (!is_array($config)) {
+            return false;
+        }
+
+        $this->config = $config;
+
+        $this->save();
+    }
+
+    public function getDescription($param)
+    {
+        return $this->descriptionParams[$param] ?? null;
     }
 }
