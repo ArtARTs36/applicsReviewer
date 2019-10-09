@@ -74,7 +74,9 @@ class ApplicAdminController extends MyAdminController
             null,
             [
                 'oldStatus' => $curStatus->getName(),
-                'newStatus' => $newStatus->getName()
+                'newStatus' => $newStatus->getName(),
+                'oldStatusId' => $curStatus->getId(),
+                'newStatusId' => $newStatus->getId()
             ]
         );
     }

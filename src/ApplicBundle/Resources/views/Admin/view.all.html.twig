@@ -61,6 +61,10 @@
                 applicId: applicId
             }).done(function (data) {
                 if (data.success === true) {
+                    let sel = '#applic-'+ applicId +' td.applicStatus span';
+                    $(sel).css('color', getColorApplicStatus(data.obj.newStatusId));
+                    $(sel).html(data.obj.newStatus);
+
                     modalInfo(
                         'Результат перевода процедуры на следующий статус', 'Заявка успешно переведена на следующий статус. ' + '\n<br/>' +
                         ' Предыдущий статус: "' + data.obj.oldStatus + '"\n <br/> \n' +
@@ -70,6 +74,19 @@
                     modalInfo('Результат перевода процедуры на следующий статус', data.msg);
                 }
             });
+        }
+
+        function getColorApplicStatus(statusId)
+        {
+            let color = 'black';
+            if (statusId === 2) {
+                color = 'green';
+            } else if (statusId === 1)
+            {
+                color = 'orange';
+            }
+
+            return color;
         }
     </script>
 <div class="modal fade" id="modalTransferBadClient">
@@ -127,13 +144,13 @@
                                             {% else %}
                                             {% set color = 'black' %}
                                         {% endif %}
-                                        <tr>
-                                            <td>{{ loop.index }}</td>
+                                        <tr id="applic-{{ applic.id }}">
+                                            <td>{{ applic.id }}</td>
                                             <td>{{ applic.clientName }}</td>
                                             <td>{{ applic.clientPhone }}</td>
                                             <td>{{ applic.clientMail }}</td>
                                             <td>{{ applic.message }}</td>
-                                            <td><span style="color:{{ color }}">{{ applic.status.name }}</span></td>
+                                            <td class="applicStatus"><span style="color:{{ color }}">{{ applic.status.name }}</span></td>
                                             <td>{{ applic.created | date('d.m.y H:i:s') }}</td>
                                             <td>
                                                 {% if applic.status.id != 2 %}
