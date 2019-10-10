@@ -1,6 +1,3 @@
-var APPLIC_MAX_NUMBER_STATUS = 2;
-var APPLIC_STATUS_NEW = 0;
-
 function incCountApplicNoProcess()
 {
     $('.countApplicsNoProcess').html($('.countApplicsNoProcess').html() - 1);
@@ -59,7 +56,7 @@ function transferBadClientAction() {
     var applicId = $('input[name="modalTransferBadClient-applic-id"]').val();
     var comment = $('textarea[name="modalTransferBadClient-comment"]').val();
 
-    $.post('{{ path("admin_vocab_bad_clients_transfer") }}', {
+    $.post(ROUTE_ADMIN_VOCAB_BAD_CLIENTS_TRANSFER, {
         applicId: applicId,
         comment: comment
     }).done(function (data) {
@@ -74,7 +71,7 @@ function transferBadClientAction() {
 
 function applicNextStatus(applicId)
 {
-    $.post('{{ path("admin_applics_status_next_status") }}', {
+    $.post(ROUTE_ADMIN_APPLIC_NEXT_STATUS, {
         applicId: applicId
     }).done(function (data) {
         if (data.success === true) {
@@ -108,7 +105,7 @@ function applicSetResultAction() {
     var applicId = $('input[name="modalApplicSetResult-applic-id"]').val();
     var comment = $('textarea[name="modalApplicSetResult-comment"]').val();
 
-    $.post('{{ path("admin_applics_set_result") }}', {
+    $.post(ROUTE_ADMIN_APPLIC_SET_RESULT, {
         applicId: applicId,
         comment: comment
     }).done(function (data) {
