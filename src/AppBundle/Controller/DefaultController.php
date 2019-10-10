@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Interfaces\MyController;
 use ApplicBundle\Entity\Applic;
-use ApplicBundle\Entity\VocabApplicStatus;
 use ApplicBundle\Form\AddApplicForm;
 use ApplicBundle\Service\ApplicService;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
@@ -37,6 +36,8 @@ class DefaultController extends MyController
 
             $sender = new PushAllMobilePushSender();
             $sender->push('Заявка №'. $applic->getId(), $applic->getMessage());
+
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('default/index.html.twig', [

@@ -54,6 +54,8 @@ class AdminController extends MyAdminController
 
             $this->getEntityManager()->persist($practice);
             $this->getEntityManager()->flush($practice);
+
+            return $this->redirectToRoute('admin_court_practices_add');
         }
 
         return $this->render('admin/CourtPractices/add.html.twig', [
@@ -111,7 +113,7 @@ class AdminController extends MyAdminController
             $this->getConfig()->setEntityManager($this->getEntityManager());
             $this->getConfig()->save();
 
-            $this->redirectToRoute('admin_settings');
+            return $this->redirectToRoute('admin_settings');
         }
 
         return $formPushAllSettings;
