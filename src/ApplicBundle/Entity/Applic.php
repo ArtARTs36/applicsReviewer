@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Applic
 {
     const STATUS_NEW = 0;
+    const STATUS_PROCESS = 1;
+    const STATUS_PROCESSED = 2;
 
     /**
      * @ORM\Column(type="integer")
@@ -54,6 +56,11 @@ class Applic
      * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $result;
 
     /**
      * @return mixed
@@ -181,5 +188,21 @@ class Applic
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param mixed $result
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
     }
 }

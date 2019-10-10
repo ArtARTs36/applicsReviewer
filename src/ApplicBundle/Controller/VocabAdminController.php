@@ -56,6 +56,7 @@ class VocabAdminController extends MyAdminController
     public function transferClientAction(Request $request)
     {
         $applicId = $request->get('applicId');
+        $comment = $request->get('comment');
 
         if (!($applicId > 0)) {
             return MyJsonResponse::make(false);
@@ -68,8 +69,9 @@ class VocabAdminController extends MyAdminController
         $vocab = new VocabBadClient();
         $vocab->setName($applic->getClientName());
         $vocab->setEmail($applic->getClientMail());
-        $vocab->setPhone($applic->getMessage());
+        $vocab->setPhone($applic->getClientPhone());
         $vocab->setCreated(new \DateTime());
+        $vocab->setComment($comment);
 
         try {
             $this->getEntityManager()->persist($vocab);

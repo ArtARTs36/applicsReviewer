@@ -6,6 +6,10 @@ admin_applics_status_next_status:
   path: /admin/applics/nextStatus/
   defaults: { _controller: ApplicBundle:ApplicAdmin:applicNextStatus}
 
+admin_applics_set_result:
+  path: /admin/applics/setResult/
+  defaults: { _controller: ApplicBundle:ApplicAdmin:applicSetResult}
+
 admin_vocab_bad_clients_add:
   path: /admin/vocab/bad-clients/add
   defaults: { _controller: ApplicBundle:VocabAdmin:addBadClient}

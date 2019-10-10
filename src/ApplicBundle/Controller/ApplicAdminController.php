@@ -6,6 +6,7 @@ use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Interfaces\MyJsonResponse;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\VocabApplicStatus;
+use ApplicBundle\Entity\VocabBadClient;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -121,5 +122,45 @@ class ApplicAdminController extends MyAdminController
         }
 
         return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * Установить/сохранить информацию о результатах заявки
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function applicSetResultAction(Request $request)
+    {
+        $applicId = $request->get('applicId');
+        $comment = $request->get('comment');
+
+        if (!($applicId > 0)) {
+            return MyJsonResponse::make(false, 'Не указана заявка!');
+        }
+
+        $applicRepo = $this->getEntityManager()->getRepository(Applic::class);
+        /** @var Applic $applic */
+        $applic = $applicRepo->find($applicId);
+
+        if ($applic === null) {
+            return MyJsonResponse::make(false, 'Заявки не существует!');
+        }
+
+        if ($applic->getStatus()->getId() != Applic::STATUS_PROCESSED) {
+            return MyJsonResponse::make(false, 'Заявки еще не обработана!');
+        }
+
+        $applic->setResult($comment);
+
+        try {
+            $this->getEntityManager()->persist($applic);
+            $this->getEntityManager()->flush($applic);
+
+            return MyJsonResponse::make(true);
+        } catch (\Exception $exception) {
+            return MyJsonResponse::make(false, 'Проблемы с базой данных: '. $exception->getMessage());
+        }
     }
 }

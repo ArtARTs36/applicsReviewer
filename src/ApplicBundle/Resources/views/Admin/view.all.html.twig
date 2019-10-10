@@ -8,87 +8,6 @@
 {% endblock %}
 
 {% block content %}
-    <script>
-        function modalInfo(title, message)
-        {
-            $('body').append('<div class="modal fade" id="modalInfo">\n' +
-                '    <div class="modal-dialog modal-dialog-centered" role="document">\n' +
-                '        <div class="modal-content">\n' +
-                '            <div class="modal-header">\n' +
-                '                <h5 class="modal-title">\n' +
-                '                   '+ title +' \n' +
-                '                </h5>\n' +
-                '                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>\n' +
-                '            </div>\n' +
-                '            <div class="modal-body">\n' +
-                '                    '+ message +'\n' +
-                '            </div>\n' +
-                '            <div class="modal-footer">\n' +
-                '                <input type="hidden" name="modalTransferBadClient-applic-id" value=""/>\n' +
-                '                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>\n' +
-                '            </div>\n' +
-                '        </div>\n' +
-                '    </div>\n' +
-                '</div>');
-
-            $('#modalInfo').modal();
-        }
-
-        function transferBadClient(applicId) {
-            $('#modalTransferBadClient #modalTransferBadClient-applic-id').html(applicId);
-            $('input[name="modalTransferBadClient-applic-id"]').val(applicId);
-        }
-        function transferBadClientAction() {
-            var applicId = $('input[name="modalTransferBadClient-applic-id"]').val();
-            var comment = $('textarea[name="modalTransferBadClient-comment"]').val();
-
-            $.post('{{ path("admin_vocab_bad_clients_transfer") }}', {
-                applicId: applicId,
-                comment: comment
-            }).done(function (data) {
-                $('#modalTransferBadClient').modal('hide');
-                if (data.success === true) {
-                    modalInfo('Результат перенесения в черный список', 'Клиент успешно перенесен в черный список');
-                } else {
-                    modalInfo('Результат перенесения в черный список', 'Клиент уже есть в черном списке');
-                }
-            });
-        }
-
-        function applicNextStatus(applicId)
-        {
-            $.post('{{ path("admin_applics_status_next_status") }}', {
-                applicId: applicId
-            }).done(function (data) {
-                if (data.success === true) {
-                    let sel = '#applic-'+ applicId +' td.applicStatus span';
-                    $(sel).css('color', getColorApplicStatus(data.obj.newStatusId));
-                    $(sel).html(data.obj.newStatus);
-
-                    modalInfo(
-                        'Результат перевода процедуры на следующий статус', 'Заявка успешно переведена на следующий статус. ' + '\n<br/>' +
-                        ' Предыдущий статус: "' + data.obj.oldStatus + '"\n <br/> \n' +
-                            'Новый статус: "' + data.obj.newStatus +'"'
-                    );
-                } else {
-                    modalInfo('Результат перевода процедуры на следующий статус', data.msg);
-                }
-            });
-        }
-
-        function getColorApplicStatus(statusId)
-        {
-            let color = 'black';
-            if (statusId === 2) {
-                color = 'green';
-            } else if (statusId === 1)
-            {
-                color = 'orange';
-            }
-
-            return color;
-        }
-    </script>
 <div class="modal fade" id="modalTransferBadClient">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -101,7 +20,7 @@
             <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label required" for="add_court_practices_form_content">Причина:</label>
-                        <textarea name="modalTransferBadClient-comment" required="required" class="form-control">Test</textarea>
+                        <textarea name="modalTransferBadClient-comment" required="required" class="form-control"></textarea>
                     </div>
             </div>
             <div class="modal-footer">
@@ -112,6 +31,30 @@
         </div>
     </div>
 </div>
+
+    <div class="modal fade" id="modalApplicSetResult">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Указать результат/итог по заявке №<span id="modalApplicSetResult-applic-id"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label required" for="add_court_practices_form_content">Результат:</label>
+                        <textarea name="modalApplicSetResult-comment" required="required" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="modalApplicSetResult-applic-id" value=""/>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" onclick="applicSetResultAction()">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div class="page-container">
     <div class="main-content-inner">
@@ -145,6 +88,7 @@
                                             {% set color = 'black' %}
                                         {% endif %}
                                         <tr id="applic-{{ applic.id }}">
+                                            <td style="display:none" class="applicResult">{{ applic.result }}</td>
                                             <td>{{ applic.id }}</td>
                                             <td>{{ applic.clientName }}</td>
                                             <td>{{ applic.clientPhone }}</td>
@@ -155,8 +99,11 @@
                                             <td>
                                                 {% if applic.status.id != 2 %}
                                                 <a onclick="applicNextStatus({{ applic.id }})" style="color:green"
-                                                   title="Перевести заявку на следующий статус" class="ti-arrow-circle-right"></a>
+                                                   title="Перевести заявку на следующий статус" class="ti-arrow-circle-right applicNextStatus"></a>
                                                 {% endif %}
+
+                                                <a onclick="applicSetResult({{ applic.id }})"
+                                                   title="Указать результат" class="ti-comment-alt applicSetResult" style="{% if applic.status.id != 2 %}display:none{% endif %}"></a>
 
                                                 <a href="javascript;" onclick="transferBadClient({{ applic.id }})" style="color:red"
                                                    title="Перевести клиента в черный список" class="ti-na" data-toggle="modal" data-target="#modalTransferBadClient"></a>
@@ -180,4 +127,5 @@
 <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+<script src="/assets/admin/scripts/applic.js"></script>
 {% endblock %}
