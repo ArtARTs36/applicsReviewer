@@ -4,12 +4,38 @@ namespace AppBundle\Interfaces;
 
 use AppBundle\Entity\Stat;
 use ApplicBundle\Entity\Applic;
+use ApplicBundle\Entity\LogApplicChanges;
 use Symfony\Component\HttpFoundation\Response;
 
 class MyAdminController extends MyController
 {
     /** @var Stat Stat */
     private $stat = null;
+
+    public function addLogApplic($field, Applic $applic, $newValue, $oldValue)
+    {
+        $getFunc = 'get'. ucfirst($field);
+
+        if (!method_exists($applic, $getFunc)) {
+            return false;
+        }
+
+        if ($newValue == $oldValue) {
+            return false;
+        }
+
+        $log = new LogApplicChanges();
+        $log->setApplic($applic);
+        $log->setField($field);
+        $log->setValue($newValue);
+        $log->setOldValue($oldValue);
+        $log->setCreated(new \DateTime());
+
+        $this->getEntityManager()->persist($log);
+        $this->getEntityManager()->flush($log);
+
+        return $log;
+    }
 
     public function statRefresh()
     {
@@ -52,9 +78,18 @@ class MyAdminController extends MyController
         return $this->stat;
     }
 
+    private function getLogs()
+    {
+        $logApplicRepo = $this->getEntityManager()->getRepository(LogApplicChanges::class);
+        $logs = $logApplicRepo->findBy([],[], 10);
+
+        return $logs;
+    }
+
     public function render($view, array $parameters = [], Response $response = null)
     {
         $parameters['stat'] = $this->getStat();
+        $parameters['logs'] = $this->getLogs();
 
         return parent::render($view, $parameters, $response);
     }

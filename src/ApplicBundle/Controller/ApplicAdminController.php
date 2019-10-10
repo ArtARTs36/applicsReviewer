@@ -5,6 +5,7 @@ namespace ApplicBundle\Controller;
 use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Interfaces\MyJsonResponse;
 use ApplicBundle\Entity\Applic;
+use ApplicBundle\Entity\LogApplicChanges;
 use ApplicBundle\Entity\VocabApplicStatus;
 use ApplicBundle\Entity\VocabBadClient;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
@@ -61,13 +62,17 @@ class ApplicAdminController extends MyAdminController
         /** @var VocabApplicStatus $newStatus */
         $newStatus = $statusRepo->find($newStatusId);
 
+        $oldStatus = $applic->getStatus();
+
         $applic->setStatus($newStatus);
 
         try {
             $this->getEntityManager()->persist($applic);
             $this->getEntityManager()->flush($applic);
+
+            $this->addLogApplic(LogApplicChanges::FIELD_STATUS, $applic, $newStatus->getName(), $oldStatus->getName());
         } catch (\Exception $exception) {
-            return MyJsonResponse::make(false, 'Проблемы с базой данных');
+            return MyJsonResponse::make(false, 'Проблемы с базой данных: '. $exception->getMessage());
         }
 
         return MyJsonResponse::make(
@@ -152,11 +157,15 @@ class ApplicAdminController extends MyAdminController
             return MyJsonResponse::make(false, 'Заявки еще не обработана!');
         }
 
+        $oldComment = $applic->getResult();
+
         $applic->setResult($comment);
 
         try {
             $this->getEntityManager()->persist($applic);
             $this->getEntityManager()->flush($applic);
+
+            $this->addLogApplic(LogApplicChanges::FIELD_RESULT, $applic, $comment, $oldComment);
 
             return MyJsonResponse::make(true);
         } catch (\Exception $exception) {
