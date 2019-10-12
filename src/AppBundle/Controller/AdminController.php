@@ -68,6 +68,10 @@ class AdminController extends MyAdminController
         $formPushAllSettings = $this->genFormPushAll($request);
         $configVersions = $this->getAllConfig();
 
+        if ($formPushAllSettings->isSubmitted()) {
+            return $this->redirectToRoute('admin_settings');
+        }
+
         return $this->render('admin/settings.html.twig', [
             'cronKey' => ApplicAdminController::CRON_KEY,
             'pushLinkFeed' => $this->getConfig()->getValue(SiteConfig::PARAM_PUSHALL_FEED_LINK),
@@ -112,8 +116,6 @@ class AdminController extends MyAdminController
 
             $this->getConfig()->setEntityManager($this->getEntityManager());
             $this->getConfig()->save();
-
-            return $this->redirectToRoute('admin_settings');
         }
 
         return $formPushAllSettings;

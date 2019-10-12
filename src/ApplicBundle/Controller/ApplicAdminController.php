@@ -2,12 +2,12 @@
 
 namespace ApplicBundle\Controller;
 
+use AppBundle\Helper\ArrayHelper;
 use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Interfaces\MyJsonResponse;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\LogApplicChanges;
 use ApplicBundle\Entity\VocabApplicStatus;
-use ApplicBundle\Entity\VocabBadClient;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,8 +25,13 @@ class ApplicAdminController extends MyAdminController
         /** @var Applic $applic */
         $applics = $applicRepository->findAll();
 
+        foreach ($applics as $applic) {
+            $applicsJson[$applic->getId()]['result'] = $applic->getResult();
+        }
+
         return $this->render('@Applic/Admin/view.all.html.twig', [
-            'applics' => $applics
+            'applics' => $applics,
+            'applicsJson' => $applicsJson
         ]);
     }
 
@@ -105,16 +110,21 @@ class ApplicAdminController extends MyAdminController
 
             $isSend = false;
             /** @var Applic $applic */
-            foreach ($applics as $applic) {
-                if ($curTime - $applic->getCreated()->getTimestamp() <= 10 * 60) {
+            foreach ($applics as $key => $applic) {
+                if ($curTime - $applic->getCreated()->getTimestamp() <= 60 * 60 * 24) {
+                    unset($applics[$key]);
                     continue;
                 }
-                $isSend = true;
-                if (next($applics)) {
-                    $msg .= $applic->getId() . ', ';
-                }
-                {
-                    $msg .= $applic->getId();
+            }
+
+            if (count($applics) > 0) {
+                foreach ($applics as $applic) {
+                    $isSend = true;
+                    if (next($applics)) {
+                        $msg .= $applic->getId() . ', ';
+                    } else {
+                        $msg .= $applic->getId();
+                    }
                 }
             }
 

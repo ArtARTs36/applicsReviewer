@@ -33,6 +33,7 @@ framework:
 
 # Twig Configuration
 twig:
+    autoescape: false
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 

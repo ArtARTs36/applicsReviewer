@@ -63,10 +63,11 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
                                     <span class="countApplicsNoProcess">{{ stat.countNoProcessApplics }}</span>
                                 </i>
                                 <div class="dropdown-menu bell-notify-box notify-box">
-                                    <span class="notify-title">Необработанных заявок: {{ stat.countNoProcessApplics }} <a href="#">view all</a></span>
+                                    <span class="notify-title">Необработанных заявок: <span class="countApplicsNoProcess">{{ stat.countNoProcessApplics }}</span>
+                                        <a href="{{ path('admin_applics_all') }}">Посмотреть все</a></span>
                                     <div class="nofity-list">
                                         {% for applic in stat.noProcessApplics %}
-                                        <a href="#" class="notify-item">
+                                        <a href="#" class="notify-item" id="head-msg-applic-{{ applic.id }}">
                                             <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
                                             <div class="notify-text">
                                                 <p>{{ applic.clientName }}</p>
@@ -118,7 +119,6 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
                                     <ul class="submenu">
                                         <li><a href="{{ path('admin_vocab_bad_clients_all') }}">Список плохих клиентов</a></li>
                                         <li><a href="{{ path('admin_vocab_bad_clients_add') }}">Добавить</a></li>
-                                        <li><a href="#">Статусы</a></li>
                                     </ul>
                                 </li>
                                 <li class="{% if currentPath == path('admin_court_practices_all') or currentPath == path('admin_court_practices_add') %}active{% endif %}">
@@ -154,7 +154,7 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
     {% block content %}{% endblock %}
     <footer>
         <div class="footer-area">
-            <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+            <p>© Copyright 2019. All right reserved.</p>
         </div>
     </footer>
     <!-- footer area end-->
@@ -164,8 +164,8 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
 <div class="offset-area">
     <div class="offset-close"><i class="ti-close"></i></div>
     <ul class="nav offset-menu-tab">
-        <li><a class="active" data-toggle="tab" href="#activity">Activity</a></li>
-        <li><a data-toggle="tab" href="#settings">Settings</a></li>
+        <li><a class="active" data-toggle="tab" href="#activity">Заявки</a></li>
+        <li><a data-toggle="tab" href="#settings">Настройки</a></li>
     </ul>
     <div class="offset-content tab-content">
         <div id="activity" class="tab-pane fade in show active">
@@ -193,59 +193,19 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
         </div>
         <div id="settings" class="tab-pane fade">
             <div class="offset-settings">
-                <h4>General Settings</h4>
+                <h4>Изменения в настройках</h4>
                 <div class="settings-list">
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Notifications</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch1" />
-                                <label for="switch1">Toggle</label>
+                    {% for log in logsSettings %}
+                        <div class="timeline-task">
+                            <div class="icon bg2">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <div class="tm-title">
+                                <span class="time"><i class="ti-time"></i>{{ log.created | date('d.m.Y H:i:s') }}</span>
+                                <a href="{{ path('admin_settings') }}#vcsSettings-{{ log.id }}">Посмотреть изменения</a>
                             </div>
                         </div>
-                        <p>Keep it 'On' When you want to get all the notification.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Show recent activity</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch2" />
-                                <label for="switch2">Toggle</label>
-                            </div>
-                        </div>
-                        <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Show your emails</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch3" />
-                                <label for="switch3">Toggle</label>
-                            </div>
-                        </div>
-                        <p>Show email so that easily find you.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Show Task statistics</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch4" />
-                                <label for="switch4">Toggle</label>
-                            </div>
-                        </div>
-                        <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Notifications</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch5" />
-                                <label for="switch5">Toggle</label>
-                            </div>
-                        </div>
-                        <p>Use checkboxes when looking for yes or no answers.</p>
-                    </div>
-                </div>
+                    {% endfor %}
             </div>
         </div>
     </div>

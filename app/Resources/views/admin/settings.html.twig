@@ -2,12 +2,14 @@
 
 {% form_theme formPushAllSettings with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+{% endblock %}
+
 {% block content %}
-    <script>
-        function cronRun(link) {
-            $('body').append('<iframe src="' + link + '"></iframe>');
-        }
-    </script>
     <div class="main-content-inner">
         <div class="container">
             <div class="row">
@@ -39,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!--div class="row">
                 <div class="col-lg-6 col-ml-12">
                     <div class="row">
                         <div class="col-12 mt-5">
@@ -56,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="row">
                 <div class="col-lg-6 col-ml-12">
@@ -115,18 +117,30 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title">Контроль версий настроек</h4>
-                                    <table class="table">
+                                    <div class="data-tables datatable-primary">
+                                        <table id="dataTable2" class="text-center">
+                                            <thead class="text-capitalize">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Параметры</th>
+                                                <th>Дата</th>
+                                                <th>Откат</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                     {% for item in configVersions %}
-                                        <tr>
+                                        <tr id="vcsSettings-{{ item.id }}">
                                             <td>{{ item.id }}</td>
                                             <td>{% for key, value in item.read %}
                                                     {{ key }}: {{ value }},
                                                 {% endfor %}</td>
-                                            <td>{{ item.created | date('d.m.Y H:is') }}</td>
+                                            <td>{{ item.created | date('d.m.Y H:i:s') }}</td>
                                             <td><a href="{{ path('admin_settings_revert', {'id': item.id}) }}">Откатиться</a></td>
                                         </tr>
                                     {% endfor %}
+                                            </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,4 +150,18 @@
 
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <script src="/assets/admin/scripts/applic.js"></script>
+<script>
+    if (window.location.href.indexOf('vcsSettings-') > 0) {
+        $(window.location.hash).css('background-color', 'blue');
+        $(window.location.hash).css('color', 'white');
+    }
+</script>
 {% endblock %}

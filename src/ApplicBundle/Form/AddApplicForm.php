@@ -16,10 +16,22 @@ class AddApplicForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('clientName')
-            ->add('clientPhone', TextType::class)
-            ->add('clientMail', EmailType::class)
-            ->add('message', TextareaType::class)
+
+            ->add('clientName', TextType::class, [
+                'label' => 'Как к Вам обращаться?'
+            ])
+
+            ->add('clientPhone', TextType::class, [
+                'label' => 'Ваш номер телефона:'
+            ])
+
+            ->add('clientMail', EmailType::class, [
+                'label' => 'Ваш электронный адрес:'
+            ])
+
+            ->add('message', TextareaType::class, [
+                'label' => 'Кратко опишите Вашу проблему:'
+            ])
         ;
 
         $builder

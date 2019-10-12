@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block content %}
+<script>
+    var applics = {{ applicsJson | json_encode }};
+</script>
 <div class="modal fade" id="modalTransferBadClient">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -88,7 +91,7 @@
                                             {% set color = 'black' %}
                                         {% endif %}
                                         <tr id="applic-{{ applic.id }}">
-                                            <td style="display:none" class="applicResult">{{ applic.result }}</td>
+                                            <span style="display:none" class="applicResult">{{ applic.result }}</span>
                                             <td>{{ applic.id }}</td>
                                             <td>{{ applic.clientName }}</td>
                                             <td>{{ applic.clientPhone }}</td>

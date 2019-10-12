@@ -17,6 +17,7 @@ function applicChangeStatus(applicId, statusId, statusName, oldStatusId)
 
     if (oldStatusId === APPLIC_STATUS_NEW) {
         incCountApplicNoProcess();
+        $('#head-msg-applic-'+ applicId).hide();
     }
 }
 
@@ -111,7 +112,7 @@ function applicSetResultAction() {
     }).done(function (data) {
         $('#modalApplicSetResult').modal('hide');
         if (data.success === true) {
-            $('#applic-'+ applicId + ' .applicResult').html(comment);
+            applics[applicId]['result'] = comment;
 
             modalInfo('Результат подведения итогов', 'Сообщение о результатах успешно сохранено');
         } else {
@@ -123,7 +124,7 @@ function applicSetResultAction() {
 function applicSetResult(applicId)
 {
     $('#modalApplicSetResult #modalApplicSetResult-applic-id').html(applicId);
-    let comment = $('#applic-'+ applicId + ' .applicResult').html();
+    let comment = applics[applicId]['result'];
     if (comment !== '' && comment !== undefined) {
         $('textarea[name="modalApplicSetResult-comment"]').val(comment);
     }

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Interfaces;
 
+use AppBundle\Controller\StatControlVersionAdminControllerTrait;
+use AppBundle\Entity\ConfigControlVersion;
 use AppBundle\Entity\Stat;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\LogApplicChanges;
@@ -86,10 +88,19 @@ class MyAdminController extends MyController
         return $logs;
     }
 
+    private function getLogsSettings()
+    {
+        $logRepo = $this->getEntityManager()->getRepository(ConfigControlVersion::class);
+        $logs = $logRepo->findBy([],[],10);
+
+        return $logs;
+    }
+
     public function render($view, array $parameters = [], Response $response = null)
     {
         $parameters['stat'] = $this->getStat();
         $parameters['logs'] = $this->getLogs();
+        $parameters['logsSettings'] = $this->getLogsSettings();
 
         return parent::render($view, $parameters, $response);
     }
