@@ -1,0 +1,32 @@
+{% extends '@App/blank.html.twig' %}
+
+{% block title %}Ваша страница{% endblock %}
+
+{% block blank_title %}
+Ваш личный кабинет
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card border-light">
+                    <div class="card-header">Ваша страница</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Полное имя: {{ user.fullname }}</li>
+                        <li class="list-group-item">Дата Регистрации: {{ user.created|date('d.m.y') }}</li>
+                        <li class="list-group-item">Email: {{ user.email }} <a href="mailto:{{  user.email }}">связаться</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

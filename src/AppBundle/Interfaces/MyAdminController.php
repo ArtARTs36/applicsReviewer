@@ -101,6 +101,7 @@ class MyAdminController extends MyController
         $parameters['stat'] = $this->getStat();
         $parameters['logs'] = $this->getLogs();
         $parameters['logsSettings'] = $this->getLogsSettings();
+        $parameters['user'] = $this->getUser();
 
         return parent::render($view, $parameters, $response);
     }

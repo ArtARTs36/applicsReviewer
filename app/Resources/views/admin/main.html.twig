@@ -87,11 +87,9 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
                     <div class="clearfix d-md-inline-block d-block">
                         <div class="user-profile m-0">
                             <img class="avatar user-thumb" src="/assets/images/author/avatar.png" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Test Test <i class="fa fa-angle-down"></i></h4>
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ user.firstName }} {{ user.lastName }} <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Message</a>
-                                <a class="dropdown-item" href="#">Settings</a>
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="{{ path('logout') }}">Выход</a>
                             </div>
                         </div>
                     </div>

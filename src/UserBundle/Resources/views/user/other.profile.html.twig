@@ -1,0 +1,30 @@
+{% extends '@App/layout-main.html.twig' %}
+
+{% block title %}Страница {{ _user.username }}{% endblock %}
+
+{% block layoutRight %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card border-light">
+                    <div class="card-header">Страница пользователя: {{ _user.username }}</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Полное имя: {{ _user.fullname }}</li>
+                        <li class="list-group-item">Страна: {{ user.region }}</li>
+                        <li class="list-group-item">Дата Рождения: {{ user.birthday|date('d.m.y') }}</li>
+                        <li class="list-group-item">Дата Регистрации: {{ _user.created|date('d.m.y') }}</li>
+                        <li class="list-group-item">Email: {{ _user.email }} <a href="mailto:{{ _user.email }}">связаться</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

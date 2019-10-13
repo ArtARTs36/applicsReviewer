@@ -1,0 +1,38 @@
+register:
+  path: /admin/register/
+  defaults: { _controller: UserBundle:Security:register }
+
+register_token:
+  path: /admin/register/{token}/
+  defaults: { _controller: UserBundle:Security:register }
+
+#login:
+#  path: /login/
+#  defaults: { _controller: UserBundle:Security:login }
+
+login_token:
+  path: /ulogin/token
+  defaults: { _controller: UserBundle:Ulogin:getUserDataByTokenULogin }
+
+logout:
+  path: /logout
+
+#recover:
+#  path: /recover/{token}/
+#  defaults: { _controller: UserBundle:Security:recover, token: null }
+
+my_profile:
+  path: /profile/my/
+  defaults: { _controller: UserBundle:User:MyProfile}
+
+other_profile:
+  path: /profile/{username}
+  defaults: { _controller: UserBundle:User:OtherProfile}
+
+user_password_recover:
+  path: /user/password/
+  defaults: { _controller: UserBundle:User:recoverPassword }
+
+admin_login:
+  path: /admin/login
+  defaults: { _controller: UserBundle:User:adminLogin }

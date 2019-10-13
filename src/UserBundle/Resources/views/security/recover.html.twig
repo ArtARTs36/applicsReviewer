@@ -1,0 +1,22 @@
+{% extends '@App/layout-main.html.twig' %}
+
+{% form_theme recover_form with ['@App/forms/bootstrap_3_layout.html.twig'] only %}
+
+{% block title %}Восстановление пароля{% endblock %}
+
+{% block layoutRight %}
+  <div class="row">
+    <div class="container">
+
+      <div class="block-1">
+        <div class="title p-3">
+          Восстановить пароль
+        </div>
+        <div class="cnt p-3">
+          {{ form(recover_form) }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

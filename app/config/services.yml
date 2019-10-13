@@ -29,6 +29,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    UserBundle\Controller\:
+        resource: '../../src/UserBundle/Controller'
+        arguments: [ '@service_container', '@security.authentication.manager', '@security.token_storage' ]
+
+    UserBundle\Service\:
+        resource: '../../src/UserBundle/Service'
+        arguments: [ '@service_container', '@security.authentication.manager', '@security.token_storage' ]
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
