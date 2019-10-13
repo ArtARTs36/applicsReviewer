@@ -62,7 +62,7 @@ class MyAdminController extends MyController
         $newStat->setCreated(new \DateTime());
 
         $this->getEntityManager()->persist($newStat);
-        $this->getEntityManager()->flush();
+        $this->getEntityManager()->flush($newStat);
 
         $newStat->setNoProcessApplics($noProcessApplics);
 
