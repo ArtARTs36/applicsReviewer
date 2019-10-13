@@ -91,14 +91,15 @@
     /*================================
     datatable active
     ==================================*/
-    if ($('#dataTable').length) {
+    if ($('#dataTable1').length) {
         $('#dataTable').DataTable({
             responsive: true
         });
     }
     if ($('#dataTable2').length) {
         $('#dataTable2').DataTable({
-            responsive: true
+            responsive: true,
+            'order': [0, 'desc']
         });
     }
     if ($('#dataTable3').length) {

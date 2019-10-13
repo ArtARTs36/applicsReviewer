@@ -10,21 +10,23 @@ class RoleLoad extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $roleRepo = $manager->getRepository(UserRole::class);
-        $role = $roleRepo->findByRole('ROLE_USER');
+        $adminRole = new UserRole();
 
-        if (!$role) {
+        $adminRole->setName("ROLE USER");
+        $adminRole->setRole("ROLE_USER");
+        $adminRole->setCommentAdd(1);
 
-            $role = new UserRole();
+        $manager->persist($adminRole);
+        $manager->flush($adminRole);
 
-            $role->setName("ROLE USER");
-            $role->setRole("ROLE_USER");
-            $role->setCommentAdd(1);
+        $adminRole = new UserRole();
 
-            $manager->persist($role);
-            $manager->flush();
+        $adminRole->setName("ROLE ADMIN");
+        $adminRole->setRole("ROLE_ADMIN");
+        $adminRole->setCommentAdd(1);
 
-        }
+        $manager->persist($adminRole);
+        $manager->flush($adminRole);
     }
 
 }

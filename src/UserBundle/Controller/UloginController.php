@@ -35,6 +35,9 @@ class UloginController extends MyController
 
         try {
             $token = $this->checkULoginToken($request->request->get('token') ?? null);
+            if ($token === null) {
+                return $this->redirectToRoute('admin_index');
+            }
             $data = $this->getResponse($token);
             $this->checkResponseData($data ?? null);
 
@@ -109,7 +112,9 @@ class UloginController extends MyController
             !isset($token) || empty($token) ||
             !$this->isValidMd5($token)
         ) {
-            throw new \LogicException('Токена не существует!');
+            return null;
+
+            //throw new \LogicException('Токена не существует!');
         }
 
         return $token;

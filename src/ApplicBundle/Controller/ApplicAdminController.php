@@ -23,7 +23,9 @@ class ApplicAdminController extends MyAdminController
     {
         $applicRepository = $this->getEntityManager()->getRepository(Applic::class);
         /** @var Applic $applic */
-        $applics = $applicRepository->findAll();
+        $applics = $applicRepository->findBy([], ['id' => 'desc'], 100);
+
+        $applicsJson = [];
 
         foreach ($applics as $applic) {
             $applicsJson[$applic->getId()]['result'] = $applic->getResult();

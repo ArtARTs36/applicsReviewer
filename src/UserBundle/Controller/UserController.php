@@ -13,7 +13,9 @@ class UserController extends MyController
 {
     public function adminLoginAction()
     {
-        if ($this->isGranted(UserRole::ROLE_ADMIN_IDENTITY)) {
+        if (
+            $this->isGranted(UserRole::ROLE_ADMIN_IDENTITY)
+        ) {
             return $this->redirectToRoute('admin_index');
         }
 

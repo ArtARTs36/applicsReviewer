@@ -42,7 +42,7 @@ class MyAdminController extends MyController
     public function statRefresh()
     {
         $applicRepo = $this->getDoctrine()->getManager()->getRepository(Applic::class);
-        $applics = $applicRepo->findAll();
+        $applics = $applicRepo->findBy([], ['id' => 'desc'], 100);
 
         $countApplics = count($applics);
 
