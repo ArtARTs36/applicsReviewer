@@ -87,7 +87,7 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
                     <div class="clearfix d-md-inline-block d-block">
                         <div class="user-profile m-0">
                             <img class="avatar user-thumb" src="/assets/images/author/avatar.png" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ user.firstName }} {{ user.lastName }} <i class="fa fa-angle-down"></i></h4>
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{% if user %}{{ user.firstName }} {{ user.lastName }}{% else %}Test Test{% endif %} <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ path('logout') }}">Выход</a>
                             </div>
@@ -112,11 +112,22 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
                                 <li class="{% if currentPath == path('admin_applics_all') %}active{% endif %}">
                                     <a href="{{ path('admin_applics_all') }}"><i class="ti-layout-sidebar-left"></i><span>Заявки</span></a>
                                 </li>
-                                <li class="{% if currentPath == path('admin_vocab_bad_clients_all') or currentPath == path('admin_vocab_bad_clients_add') %}active{% endif %}">
+                                <li class="{% if currentPath == path('admin_offer_document_all') or currentPath == path('admin_offer_document_add') %}active{% endif %}">
+                                    <a href="javascript:void(0)"><i class="ti-shopping-cart"></i><span>Услуги</span></a>
+                                    <ul class="submenu">
+                                        <a href="{{ path('admin_offer_document_all') }}"><span>Изготовление документов</span></a>
+                                        <a href="{{ path('admin_offer_document_add') }}"><i class="ti-plus"></i><span>Добавить</span></a>
+                                    </ul>
+                                </li>
+                                <li class="{% if currentPath == path('admin_vocab_bad_clients_all') or currentPath == path('admin_vocab_bad_clients_add') or currentPath == path('admin_vocab_required_doc_all') or currentPath == path('admin_vocab_required_doc_all')  or currentPath == path('admin_vocab_delivery_method_all') or currentPath == path('admin_vocab_delivery_method_all') %}active{% endif %}">
                                     <a href="javascript:void(0)"><i class="ti-layers-alt"></i><span>Справочники</span></a>
                                     <ul class="submenu">
-                                        <li><a href="{{ path('admin_vocab_bad_clients_all') }}">Список плохих клиентов</a></li>
-                                        <li><a href="{{ path('admin_vocab_bad_clients_add') }}">Добавить</a></li>
+                                        <li><a href="{{ path('admin_vocab_bad_clients_all') }}">Плохие клиенты</a></li>
+                                        <li><a href="{{ path('admin_vocab_bad_clients_add') }}"><i class="ti-plus"></i>Добавить</a></li>
+                                        <li><a href="{{ path('admin_vocab_required_doc_all') }}">Необходимые документы</a></li>
+                                        <li><a href="{{ path('admin_vocab_required_doc_add') }}"><i class="ti-plus"></i>Добавить</a></li>
+                                        <li><a href="{{ path('admin_vocab_delivery_method_all') }}">Способы доставки</a></li>
+                                        <li><a href="{{ path('admin_vocab_delivery_method_add') }}"><i class="ti-plus"></i>Добавить</a></li>
                                     </ul>
                                 </li>
                                 <li class="{% if currentPath == path('admin_court_practices_all') or currentPath == path('admin_court_practices_add') %}active{% endif %}">

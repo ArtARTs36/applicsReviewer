@@ -25,3 +25,27 @@ admin_vocab_bad_clients_transfer:
 cron_no_process_applics:
   path: /admin/cron/noProcessApplics/{key}/
   defaults: { _controller: ApplicBundle:ApplicAdmin:cronNoProcessApplics}
+
+admin_offer_document_all:
+  path: /admin/offer/documents
+  defaults: { _controller: ApplicBundle:OfferDocumentAdmin:viewAll}
+
+admin_offer_document_add:
+  path: /admin/offer/documents/add
+  defaults: { _controller: ApplicBundle:OfferDocumentAdmin:add}
+
+admin_vocab_required_doc_all:
+  path: /admin/vocab/required-docs
+  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllRequiredDoc}
+
+admin_vocab_required_doc_add:
+  path: /admin/vocab/required-docs/add
+  defaults: { _controller: ApplicBundle:VocabAdmin:addRequiredDoc}
+
+admin_vocab_delivery_method_all:
+  path: /admin/vocab/delivery-methods
+  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllDeliveryMethod}
+
+admin_vocab_delivery_method_add:
+  path: /admin/vocab/delivery-methods/add
+  defaults: { _controller: ApplicBundle:VocabAdmin:addDeliveryMethod}
