@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use ApplicBundle\Entity\Applic;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Stat
 {
-    private $noProcessApplics = [];
-
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -33,6 +33,17 @@ class Stat
      * @ORM\Column(type="datetime")
      */
     private $created;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\ApplicBundle\Entity\Applic", inversedBy="stat", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="stat_applics_no_process")
+     */
+    private $noProcessApplics;
+
+    public function __construct()
+    {
+        $this->noProcessApplics = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -83,7 +94,7 @@ class Stat
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -112,5 +123,10 @@ class Stat
     public function setNoProcessApplics($noProcessApplics)
     {
         $this->noProcessApplics = $noProcessApplics;
+    }
+
+    public function addNoProcessApplics(Applic $applic)
+    {
+        $this->noProcessApplics[] = $applic;
     }
 }

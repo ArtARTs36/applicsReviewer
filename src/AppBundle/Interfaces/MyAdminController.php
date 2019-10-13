@@ -2,7 +2,6 @@
 
 namespace AppBundle\Interfaces;
 
-use AppBundle\Controller\StatControlVersionAdminControllerTrait;
 use AppBundle\Entity\ConfigControlVersion;
 use AppBundle\Entity\Stat;
 use ApplicBundle\Entity\Applic;
@@ -39,39 +38,23 @@ class MyAdminController extends MyController
         return $log;
     }
 
-    public function statRefresh()
-    {
-        $applicRepo = $this->getDoctrine()->getManager()->getRepository(Applic::class);
-        $applics = $applicRepo->findBy([], ['id' => 'desc'], 100);
-
-        $countApplics = count($applics);
-
-        $countNoProcessApplics = 0;
-        $noProcessApplics = [];
-        /** @var Applic $applic */
-        foreach($applics as $applic) {
-            if ($applic->getStatus()->getId() == Applic::STATUS_NEW) {
-                $countNoProcessApplics++;
-                $noProcessApplics[] = $applic;
-            }
-        }
-
-        $newStat = new Stat();
-        $newStat->setCountApplics($countApplics);
-        $newStat->setCountNoProcessApplics($countNoProcessApplics);
-        $newStat->setCreated(new \DateTime());
-
-        $this->getEntityManager()->persist($newStat);
-        $this->getEntityManager()->flush($newStat);
-
-        $newStat->setNoProcessApplics($noProcessApplics);
-
-        $this->stat = $newStat;
-    }
-
+    /**
+     * @return Stat
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getStat()
     {
-        if ($this->stat !== null) {
+        $statRepo = $this->getEntityManager()->getRepository(Stat::class);
+        $stats = $statRepo->findBy([], ['id' => 'desc'], 1);
+        $this->stat = isset($stats[0]) && ($stats[0] instanceof Stat) ? $stats[0] : null;
+
+        $allowTime = time() - (60 * 60 * 1);
+
+        if (
+            $this->stat !== null &&
+            $this->stat->getCreated()->getTimestamp() >= $allowTime
+        ) {
             return $this->stat;
         }
 

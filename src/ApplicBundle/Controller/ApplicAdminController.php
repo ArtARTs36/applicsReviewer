@@ -42,6 +42,8 @@ class ApplicAdminController extends MyAdminController
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function applicNextStatusAction(Request $request)
     {
@@ -82,6 +84,8 @@ class ApplicAdminController extends MyAdminController
             return MyJsonResponse::make(false, 'Проблемы с базой данных: '. $exception->getMessage());
         }
 
+        $this->statRefresh();
+
         return MyJsonResponse::make(
             true,
             null,
@@ -94,6 +98,12 @@ class ApplicAdminController extends MyAdminController
         );
     }
 
+    /**
+     * @param $key
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function cronNoProcessApplicsAction($key)
     {
         if ($key == self::CRON_KEY) {

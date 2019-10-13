@@ -5,7 +5,7 @@ namespace ApplicBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ApplicBundle\Repository\ApplicRepository")
  * @ORM\Table(name="applics")
  */
 class Applic
@@ -61,6 +61,13 @@ class Applic
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
     private $result;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\ManyToMany(targetEntity="\AppBundle\Entity\Stat", mappedBy="noProcessApplics")
+     *
+     */
+    private $stat;
 
     /**
      * @return mixed
@@ -204,5 +211,21 @@ class Applic
     public function setResult($result)
     {
         $this->result = $result;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getStat()
+    {
+        return $this->stat;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $stat
+     */
+    public function setStat($stat)
+    {
+        $this->stat = $stat;
     }
 }
