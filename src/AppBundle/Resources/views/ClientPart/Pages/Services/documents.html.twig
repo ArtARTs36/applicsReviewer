@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Изготовление документов{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container" class="container-fluid my-container">
+
+            <h2 class="secondary-heading mb-3">
+                Изготовление документов онлайн
+            </h2>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название документа</th>
+                    <th scope="col">Стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in docs %}
+                <tr>
+                    <th scope="row">{{ item.id }}</th>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }} руб.</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

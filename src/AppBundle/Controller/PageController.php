@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Interfaces\MyClientPartController;
 use ApplicBundle\Entity\Applic;
+use ApplicBundle\Entity\OfferDocument;
 use ApplicBundle\Form\AddApplicForm;
 use ApplicBundle\Service\ApplicService;
 use MobilePushBundle\Sender\PushAllMobilePushSender;
@@ -25,7 +26,18 @@ class PageController extends MyClientPartController
         ]);
     }
 
-    public function getCallBackPageAction(Request $request)
+    public function getServiceDocumentsAction(Request $request)
+    {
+        $docsRepo = $this->getEntityManager()->getRepository(OfferDocument::class);
+        $docs = $docsRepo->findAll();
+
+        return $this->render('@App/ClientPart/Pages/Services/documents.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'docs' => $docs
+        ]);
+    }
+
+    public function getCallBackAction(Request $request)
     {
         $form = $this->createForm(AddApplicForm::class, null);
 
