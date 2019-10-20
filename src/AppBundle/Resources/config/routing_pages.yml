@@ -1,7 +1,11 @@
 page_callback:
-  path: /callback
+  path: /callback/
   defaults: { _controller: AppBundle:Page:getCallBack}
 
 page_services_documents:
-  path: /services/documents
+  path: /services/documents/
   defaults: { _controller: AppBundle:Page:getServiceDocuments}
+
+page_services_document:
+  path: /services/documents/{id}/
+  defaults: { _controller: AppBundle:Page:getServiceDocument}

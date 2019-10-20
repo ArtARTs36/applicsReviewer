@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Изготовление документов{% endblock %}
+
+{% form_theme addApplicForm with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container" class="container-fluid my-container">
+            <h2 class="secondary-heading mb-3">
+                {{ doc.name }}
+            </h2>
+            <div class="container">
+                <h4 class="secondary-heading mb-3">
+                    Список необходимых документов
+                </h4>
+
+                <ul class="list-group list-group-flush">
+                    {% for item in doc.requiredDocuments %}
+                        <li class="list-group-item">
+                            {{ item.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <br/>
+
+                <h4 class="secondary-heading mb-3">
+                    Способы отправки документов
+                </h4>
+
+                <ul class="list-group list-group-flush">
+                    {% for item in doc.deliveryMethods %}
+                    <li class="list-group-item">
+                        {{ item.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <br/>
+
+                <h3 class="secondary-heading mb-3">
+                    Оставить заявку
+                </h3>
+
+                {{ form_start(addApplicForm) }}
+                {{ form_widget(addApplicForm) }}
+                {{ form_end(addApplicForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
