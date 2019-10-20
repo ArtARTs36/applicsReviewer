@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Interfaces\MyClientPartController;
-use AppBundle\Interfaces\MyController;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Form\AddApplicForm;
 use ApplicBundle\Service\ApplicService;
@@ -11,7 +10,7 @@ use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends MyClientPartController
+class PageController extends MyClientPartController
 {
     /**
      * @Route("/", name="homepage")
@@ -20,6 +19,13 @@ class DefaultController extends MyClientPartController
      * @throws \Exception
      */
     public function indexAction(Request $request)
+    {
+        return $this->render('ClientPart/Pages/homepage.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
+    }
+
+    public function getCallBackPageAction(Request $request)
     {
         $form = $this->createForm(AddApplicForm::class, null);
 
@@ -41,7 +47,7 @@ class DefaultController extends MyClientPartController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('default/index.html.twig', [
+        return $this->render('@App/ClientPart/Pages/callback.html.twig', [
             'addApplicForm' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
