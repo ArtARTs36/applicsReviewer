@@ -7,6 +7,7 @@ use AppBundle\Service\SiteConfig;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Repository\ApplicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class MyController extends Controller
 {
@@ -61,6 +62,13 @@ class MyController extends Controller
         $newStat->setNoProcessApplics($noProcessApplics);
 
         $this->stat = $newStat;
+    }
+
+    public function render($view, array $parameters = [], Response $response = null)
+    {
+        $parameters['siteConfig'] = $this->siteConfig->config;
+
+        return parent::render($view, $parameters, $response);
     }
 
     public function getConfig()

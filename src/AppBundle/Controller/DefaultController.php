@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Interfaces\MyClientPartController;
 use AppBundle\Interfaces\MyController;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Form\AddApplicForm;
@@ -10,7 +11,7 @@ use MobilePushBundle\Sender\PushAllMobilePushSender;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends MyController
+class DefaultController extends MyClientPartController
 {
     /**
      * @Route("/", name="homepage")

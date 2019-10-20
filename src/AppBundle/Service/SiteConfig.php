@@ -14,6 +14,11 @@ class SiteConfig
     const PARAM_PUSHALL_FEED_LINK = 'pushall_feed_link';
     const PARAM_STAT_REFRESH = 'stat_refresh';
 
+    const PARAM_FOOTER_PHONE_1 = 'footer_phone_1';
+    const PARAM_FOOTER_PHONE_2 = 'footer_phone_2';
+    const PARAM_FOOTER_EMAIL = 'footer_email';
+    const PARAM_FOOTER_ADDRESS = 'footer_address';
+
     public $descriptionParams = [
         self::PARAM_PUSHALL_API_KEY => 'PushAll: Ключ для API',
         self::PARAM_PUSHALL_APPLICATION_ID => 'PushAll: ID приложения',
@@ -21,7 +26,7 @@ class SiteConfig
         self::PARAM_STAT_REFRESH => 'Обновление статистики (интервал)',
     ];
 
-    private $config;
+    public $config;
 
     /**
      * @var ObjectManager

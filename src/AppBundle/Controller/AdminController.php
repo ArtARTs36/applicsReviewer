@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CourtPractice;
 use AppBundle\Form\AddCourtPracticesForm;
+use AppBundle\Form\EditDesignForm;
 use AppBundle\Form\EditPushAllSettingsForm;
 use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Service\SiteConfig;
@@ -119,5 +120,50 @@ class AdminController extends MyAdminController
         }
 
         return $formPushAllSettings;
+    }
+
+    public function settingsDesignAction(Request $request)
+    {
+        $formPushAllSettings = $this->createForm(EditDesignForm::class,
+            [
+                EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_1 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_1),
+                EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_2 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_2)
+            ]
+        );
+
+        $formPushAllSettings->handleRequest($request);
+
+        if ($formPushAllSettings->isSubmitted() && $formPushAllSettings->isValid()) {
+            $data = $formPushAllSettings->getViewData();
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_FOOTER_PHONE_1,
+                $data[EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_1]
+            );
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_FOOTER_PHONE_2,
+                $data[EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_2]
+            );
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_FOOTER_EMAIL,
+                $data[EditDesignForm::FIELD_FOOTER_EMAIL]
+            );
+
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_FOOTER_ADDRESS,
+                $data[EditDesignForm::FIELD_FOOTER_ADDRESS]
+            );
+
+            $this->getConfig()->setEntityManager($this->getEntityManager());
+            $this->getConfig()->save();
+
+            $this->redirectToRoute('admin_settings_design');
+        }
+
+        return $this->render('admin/settings.design.html.twig', [
+            'form' => $formPushAllSettings->createView()
+        ]);
     }
 }

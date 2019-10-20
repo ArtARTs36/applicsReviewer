@@ -6,6 +6,10 @@ admin_settings:
   path: /admin/settings/
   defaults: { _controller: AppBundle:Admin:settings}
 
+admin_settings_design:
+  path: /admin/settings/design
+  defaults: { _controller: AppBundle:Admin:settingsDesign}
+
 admin_settings_revert:
   path: /admin/settings/revert/{id}/
   defaults: { _controller: AppBundle:Admin:revertConfig}
