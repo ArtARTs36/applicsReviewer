@@ -13,21 +13,30 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Название документа</th>
                     <th scope="col">Стоимость</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in docs %}
-                <tr>
-                    <th scope="row">{{ item.id }}</th>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.price }} руб.</td>
-                </tr>
+                    <tr>
+                        <td><a href="{{ path('page_services_document', {'id': item.id}) }}">{{ item.name }}</td>
+                        <td>{{ item.price }} руб.</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+    jQuery('table tr').click(function () {
+        let link = $(this + ' td a').attr('href');
+        if (link !== undefined) {
+            window.location = link;
+        }
+    })
+</script>
 {% endblock %}
