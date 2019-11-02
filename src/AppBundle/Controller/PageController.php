@@ -39,6 +39,20 @@ class PageController extends MyClientPartController
         ]);
     }
 
+    public function getWorkPageAction($workUrl)
+    {
+        $workRepo = $this->getEntityManager()->getRepository(Work::class);
+        /** @var Work $work */
+        $work = $workRepo->findOneBy(['url' => $workUrl]);
+
+        $services = $work->getServices();
+
+        return $this->render('@App/ClientPart/Pages/Services/Works/family.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
+            'services' => $services
+        ]);
+    }
+
     public function getWorksFamilyAction(Request $request)
     {
         $workRepo = $this->getEntityManager()->getRepository(Work::class);

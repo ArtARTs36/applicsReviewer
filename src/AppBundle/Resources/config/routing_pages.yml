@@ -14,3 +14,6 @@ page_works_family:
   path: /services/works/family/
   defaults: { _controller: AppBundle:Page:getWorksFamily}
 
+page_works_service:
+  path: /services/works/{workUrl}/
+  defaults: { _controller: AppBundle:Page:getWorkPage}
