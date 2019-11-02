@@ -1,0 +1,58 @@
+{% extends 'admin/main.html.twig' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="/assets/css/datatables/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/datatables/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/datatables/responsive.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/datatables/responsive.jqueryui.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="main-content-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Услуги по блоку дел: {{ work.name }}</h4>
+                            <div class="data-tables datatable-primary">
+                                <a href="{{ path('admin_works_service_add') }}" class="btn btn-primary btn-lg btn-block">Создать услугу</a>
+                                <br/>
+                                <table id="dataTable2" class="text-center">
+                                    <thead class="text-capitalize">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Название</th>
+                                        <th>Редактировать</th>
+                                        <th>Дата</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in services %}
+                                        <tr id="service-{{ item.id }}">
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.name }}</td>
+                                            <td><a href="{{path('admin_works_service_edit', {'id': item.id})}}">Редактировать</a></td>
+                                            <td>{{ item.created | date('d.m.y H:i:s') }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="/assets/js/datatables/jquery.dataTables.js"></script>
+<script src="/assets/js/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/js/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/js/datatables/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="/assets/js/datatables/2.2.3/js/responsive.bootstrap.min.js"></script>
+<script src="/assets/admin/scripts/applic.js"></script>
+{% endblock %}

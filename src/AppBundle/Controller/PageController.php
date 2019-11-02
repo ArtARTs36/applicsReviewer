@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Work;
 use AppBundle\Interfaces\MyClientPartController;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Entity\OfferDocument;
@@ -35,6 +36,20 @@ class PageController extends MyClientPartController
         return $this->render('@App/ClientPart/Pages/Services/documents.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
             'docs' => $docs
+        ]);
+    }
+
+    public function getWorksFamilyAction(Request $request)
+    {
+        $workRepo = $this->getEntityManager()->getRepository(Work::class);
+        /** @var Work $work */
+        $work = $workRepo->find(1);
+
+        $services = $work->getServices();
+
+        return $this->render('@App/ClientPart/Pages/Services/Works/family.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
+            'services' => $services
         ]);
     }
 

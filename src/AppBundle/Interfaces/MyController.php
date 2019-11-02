@@ -16,6 +16,8 @@ class MyController extends Controller
      */
     private $siteConfig;
 
+    private $stat;
+
     public function __construct()
     {
         $this->siteConfig = new SiteConfig();

@@ -21,3 +21,19 @@ admin_court_practices_all:
 admin_court_practices_add:
   path: /admin/practices/add
   defaults: { _controller: AppBundle:Admin:courtPracticeAdd}
+
+admin_works_all:
+  path: /admin/works/
+  defaults: { _controller: AppBundle:WorkAdmin:getViewAllWorks}
+
+admin_works_view:
+  path: /admin/works/{id}/
+  defaults: { _controller: AppBundle:WorkAdmin:getViewWork}
+
+admin_works_service_add:
+  path: /admin/works/service/add/
+  defaults: { _controller: AppBundle:WorkAdmin:addService}
+
+admin_works_service_edit:
+  path: /admin/works/service/{id}/
+  defaults: { _controller: AppBundle:WorkAdmin:editService}

@@ -9,3 +9,8 @@ page_services_documents:
 page_services_document:
   path: /services/documents/{id}/
   defaults: { _controller: AppBundle:Page:getServiceDocument}
+
+page_works_family:
+  path: /services/works/family/
+  defaults: { _controller: AppBundle:Page:getWorksFamily}
+
