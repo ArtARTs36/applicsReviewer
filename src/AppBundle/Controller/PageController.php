@@ -45,11 +45,12 @@ class PageController extends MyClientPartController
         /** @var Work $work */
         $work = $workRepo->findOneBy(['url' => $workUrl]);
 
-        $services = $work->getServices();
+        dump($workUrl);
+        dump($work);
 
         return $this->render('@App/ClientPart/Pages/Services/Works/family.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
-            'services' => $services
+            'work' => $work,
         ]);
     }
 
