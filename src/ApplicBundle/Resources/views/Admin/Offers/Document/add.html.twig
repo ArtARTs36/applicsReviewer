@@ -1,5 +1,7 @@
 {% extends 'admin/main.html.twig' %}
 
+{% block title %}{% if edit %}Услуга-Документ №{{ offer.id }} - {% endif %}Создать услугу по изготовлению документов{% endblock %}
+
 {% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
 {% block content %}

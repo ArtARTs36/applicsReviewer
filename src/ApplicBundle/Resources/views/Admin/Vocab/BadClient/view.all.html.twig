@@ -7,6 +7,8 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/datatables/responsive.jqueryui.min.css">
 {% endblock %}
 
+{% block title %}Черный список клиентов{% endblock %}
+
 {% block content %}
 <div class="page-container">
     <div class="main-content-inner">
@@ -32,7 +34,7 @@
                                     <tbody>
                                     {% for item in clients %}
                                         <tr>
-                                            <td>{{ loop.index }}</td>
+                                            <td>{{ item.id }}</td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.phone }}</td>
                                             <td>{{ item.email }}</td>

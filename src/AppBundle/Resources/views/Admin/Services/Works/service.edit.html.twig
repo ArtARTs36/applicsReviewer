@@ -1,5 +1,7 @@
 {% extends 'admin/main.html.twig' %}
 
+{% block title %}{% if edit %}Услуга №{{ service.id }} - {{ service.work.name }} - {% else %}Создать услугу{% endif %} - Услуги по изготовлению документов{% endblock %}
+
 {% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
 {% block content %}
