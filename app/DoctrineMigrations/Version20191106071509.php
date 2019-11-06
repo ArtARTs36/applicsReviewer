@@ -51,6 +51,6 @@ class Version20191106071509 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql( "DELETE FROM `works_services` WHERE `works_services`.`created` = '2019-11-04 11:01:00' AND `works_services`.`created` = '". self::WORK_ID ."'");
+        $this->addSql( "DELETE FROM `works_services` WHERE `works_services`.`created` = '2019-11-04 11:01:00' AND `works_services`.`work_id` = '". self::WORK_ID ."'");
     }
 }
