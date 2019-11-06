@@ -27,43 +27,6 @@ class AdminController extends MyAdminController
         ]);
     }
 
-    /**
-     * Функция для отображения списка судебных практик
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function courtPracticeViewAllAction()
-    {
-        $practicesRepo = $this->getEntityManager()->getRepository(CourtPractice::class);
-        $practices = $practicesRepo->findAll();
-
-        return $this->render('admin/CourtPractices/view.all.html.twig', [
-            'practices' => $practices
-        ]);
-    }
-
-    public function courtPracticeAddAction(Request $request)
-    {
-        $form = $this->createForm(AddCourtPracticesForm::class, null);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var CourtPractice $practice */
-            $practice = $form->getViewData();
-            $practice->setCreated(new \DateTime());
-
-            $this->getEntityManager()->persist($practice);
-            $this->getEntityManager()->flush($practice);
-
-            return $this->redirectToRoute('admin_court_practices_add');
-        }
-
-        return $this->render('admin/CourtPractices/add.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
     public function settingsAction(Request $request)
     {
         $formPushAllSettings = $this->genFormPushAll($request);
