@@ -17,12 +17,24 @@ class AddBadClientForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('patronymic', TextType::class)
-            ->add('family', TextType::class)
-            ->add('phone', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('comment', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Имя'
+            ])
+            ->add('patronymic', TextType::class, [
+                'label' => 'Отчество'
+            ])
+            ->add('family', TextType::class, [
+                'label' => 'Фамилия'
+            ])
+            ->add('phone', TextType::class, [
+                'label' => 'Номер телефона'
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Адрес электронной почты'
+            ])
+            ->add('comment', TextareaType::class, [
+                'label' => 'Комментарий'
+            ])
         ;
 
         $builder
