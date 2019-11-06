@@ -2,19 +2,17 @@
 
 namespace ApplicBundle\Controller;
 
+use AppBundle\Entity\CourtPractice;
+use AppBundle\Form\AddCourtPracticesForm;
 use AppBundle\Interfaces\MyAdminController;
 use AppBundle\Interfaces\MyJsonResponse;
 use ApplicBundle\Entity\Applic;
-use ApplicBundle\Entity\OfferDocumentDeliveryMethod;
-use ApplicBundle\Entity\OfferDocumentRequiredDoc;
 use ApplicBundle\Entity\VocabBadClient;
 use ApplicBundle\Form\AddBadClientForm;
-use ApplicBundle\Form\AddDeliveryMethod;
-use ApplicBundle\Form\AddRequiredDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class VocabAdminController extends MyAdminController
+class VocabBadClientAdminController extends MyAdminController
 {
     public function viewAllBadClientAction()
     {
@@ -27,7 +25,7 @@ class VocabAdminController extends MyAdminController
         ]);
     }
 
-    public function addBadClientAction(Request $request)
+    public function addClientAction(Request $request)
     {
         $form = $this->createForm(AddBadClientForm::class, null);
 
@@ -41,12 +39,13 @@ class VocabAdminController extends MyAdminController
             $this->getEntityManager()->persist($badClient);
             $this->getEntityManager()->flush($badClient);
 
-            return $this->redirectToRoute('admin_vocab_bad_clients_add');
+            return $this->redirectToViewAll();
         }
 
         return $this->render('@Applic/Admin/Vocab/BadClient/add.html.twig', [
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'edit' => false
         ]);
     }
 
@@ -87,73 +86,68 @@ class VocabAdminController extends MyAdminController
         }
     }
 
-    public function viewAllRequiredDocAction()
+    /**
+     * Редактирование клиента из черного списка
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function editClientAction(Request $request, $id)
     {
-        $docRepository = $this->getEntityManager()->getRepository(OfferDocumentRequiredDoc::class);
-        /** @var OfferDocumentRequiredDoc $docs */
-        $docs = $docRepository->findAll();
+        $repo = $this->getEntityManager()->getRepository(VocabBadClient::class);
+        $client = $repo->find($id);
 
-        return $this->render('@Applic/Admin/Vocab/RequiredDoc/view.all.html.twig', [
-            'docs' => $docs
-        ]);
-    }
+        if ($client === null) {
+            return $this->redirectToRoute('admin_court_practices_all');
+        }
 
-    public function addRequiredDocAction(Request $request)
-    {
-        $form = $this->createForm(AddRequiredDoc::class, null);
+        $form = $this->createForm(AddBadClientForm::class, $client);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var OfferDocumentRequiredDoc $practice */
-            $doc = $form->getViewData();
-            $doc->setCreated(new \DateTime());
+            /** @var VocabBadClient $client */
+            $client = $form->getViewData();
 
-            $this->getEntityManager()->persist($doc);
-            $this->getEntityManager()->flush($doc);
+            $this->getEntityManager()->persist($client);
+            $this->getEntityManager()->flush($client);
 
-            return $this->redirectToRoute('admin_vocab_required_doc_all');
+            return $this->redirectToViewAll();
         }
 
-        return $this->render('@Applic/Admin/Vocab/RequiredDoc/add.html.twig', [
+        return $this->render('@Applic/Admin/Vocab/BadClient/add.html.twig', [
             'form' => $form->createView(),
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'client' => $client,
+            'edit' => true
         ]);
     }
 
-
-
-    public function viewAllDeliveryMethodAction()
+    /**
+     * Удалить клиента из черного списка
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeClientAction(Request $request, $id)
     {
-        $methodRepository = $this->getEntityManager()->getRepository(OfferDocumentDeliveryMethod::class);
-        /** @var OfferDocumentDeliveryMethod $methods */
-        $methods = $methodRepository->findAll();
+        $repo = $this->getEntityManager()->getRepository(VocabBadClient::class);
+        $practice = $repo->find($id);
 
-        return $this->render('@Applic/Admin/Vocab/DeliveryMethod/view.all.html.twig', [
-            'methods' => $methods
-        ]);
-    }
-
-    public function addDeliveryMethodAction(Request $request)
-    {
-        $form = $this->createForm(AddDeliveryMethod::class, null);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var OfferDocumentDeliveryMethod $method */
-            $method = $form->getViewData();
-            $method->setCreated(new \DateTime());
-
-            $this->getEntityManager()->persist($method);
-            $this->getEntityManager()->flush($method);
-
-            return $this->redirectToRoute('admin_vocab_delivery_method_all');
+        if ($practice === null) {
+            return $this->redirectToViewAll();
         }
 
-        return $this->render('@Applic/Admin/Vocab/DeliveryMethod/add.html.twig', [
-            'form' => $form->createView(),
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $this->getEntityManager()->remove($practice);
+        $this->getEntityManager()->flush();
+
+        return $this->redirectToViewAll();
+    }
+
+    private function redirectToViewAll()
+    {
+        return $this->redirectToRoute('admin_vocab_bad_clients_all');
     }
 }

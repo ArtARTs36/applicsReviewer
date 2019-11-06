@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
+{% if middleRating > 0 %}
+    {% set middleRatingBadStar = 5 - middleRating %}
+{% endif %}
+
+{% block title %}Отзывы о нас{% endblock %}
+
+{% block body %}
+    <div class="container my-5 py-5 z-depth-1">
+        <section class="px-md-4 mx-md-5 dark-grey-text">
+            <h2 class="text-center font-weight-bold mb-4 pb-2">Отзывы о нас</h2>
+            <div class="row">
+                {% if notes %}
+                    <div class="row">
+                        <div class="col-xl-auto">
+                            <div class="rating-block">
+                                <h4>Средняя оценка</h4>
+                                <h2 class="bold padding-bottom-7">{{ middleRating }} <small>/ 5</small></h2>
+
+                                {% for i in 1..middleRating %}
+                                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                        <span class="fas fa-star" aria-hidden="true"></span>
+                                    </button>
+                                {% endfor %}
+
+                                {% if middleRatingBadStar > 0 %}
+                                    {% for i in 1..middleRatingBadStar %}
+                                        <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                            <span class="fas fa-star" aria-hidden="true"></span>
+                                        </button>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                {% for item in notes %}
+                    <div class="row" style="width:100%">
+                        <div class="col">
+                            <hr/>
+                            <div class="review-block">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                        <div class="review-block-name"><a href="#">{{ item.name }}</a></div>
+                                        <div class="review-block-date">{{item.created | date('d.m.Y H:i:s')}}</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="review-block-rate">
+                                            {% for i in 1..item.rating %}
+                                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                                    <span class="fas fa-star" aria-hidden="true"></span>
+                                                </button>
+                                            {% endfor %}
+                                            {% set countGreyStar = 5 - item.rating %}
+
+                                            {% if countGreyStar > 0 %}
+                                            {% for i in 1..countGreyStar %}
+                                            <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                                <span class="fas fa-star" aria-hidden="true"></span>
+                                            </button>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="review-block-description">{{item.message}}</div>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                            Отзывов пока еще нет :(
+                        </div>
+                {% endif %}
+            </div>
+
+            <div style="box-sizing: border-box; padding-right:30px">
+            <h2>Оставить отзыв</h2>
+            {{ form_start(form) }}
+            {{ form(form) }}
+            {{ form_end(form) }}
+            </div>
+        </section>
+    </div>
+
+    <style>
+        .btn-grey{
+            background-color:#D8D8D8;
+            color:#FFF;
+        }
+        .rating-block{
+            background-color:#FAFAFA;
+            border:1px solid #EFEFEF;
+            padding:15px 15px 20px 15px;
+            border-radius:3px;
+            width:100%;
+        }
+        .bold{
+            font-weight:700;
+        }
+        .padding-bottom-7{
+            padding-bottom:7px;
+        }
+
+        .review-block{
+            background-color:#FAFAFA;
+            border:1px solid #EFEFEF;
+            padding:15px;
+            border-radius:3px;
+            margin-bottom:15px;
+            width:100%;
+        }
+        .review-block-name{
+            margin:10px 0;
+        }
+        .review-block-date{
+            font-size:12px;
+        }
+        .review-block-rate{
+            margin-bottom:15px;
+        }
+        .review-block-rate .fas{
+        }
+    </style>
+{% endblock %}

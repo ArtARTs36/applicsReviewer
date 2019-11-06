@@ -2,6 +2,8 @@
 
 {% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
+{% block title %}{% if edit %}Клиент №{{ client.id }} - Черный список {% else %}Добавить клиента в черный список{% endif %}{% endblock %}
+
 {% block content %}
     <div class="page-container">
         <div class="main-content-inner">
@@ -10,7 +12,7 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Черный список клиентов: добавить</h4>
+                                <h4 class="header-title">Черный список клиентов: {% if edit %} Клиент №{{ client.id }}{% else %}добавить{% endif %}</h4>
                                 {{ form_start(form) }}
                                 {{ form_widget(form) }}
                                 {{ form_end(form) }}

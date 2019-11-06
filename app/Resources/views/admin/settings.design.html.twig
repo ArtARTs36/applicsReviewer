@@ -1,0 +1,46 @@
+{% extends 'admin/main.html.twig' %}
+
+{% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="/assets/css/datatables/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/datatables/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/datatables/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/datatables/responsive.jqueryui.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="main-content-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-ml-12">
+                    <div class="row">
+                        <div class="col-12 mt-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Настройка дизайна на клиентской части сайта</h4>
+                                    <p class="text-muted font-14 mb-4"></p>
+                                    {{ form(form) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+<script src="/assets/js/datatables/jquery.dataTables.js"></script>
+    <script src="/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/js/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/js/datatables/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="/assets/js/datatables/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <script src="/assets/admin/scripts/applic.js"></script>
+    <script>
+if (window.location.href.indexOf('vcsSettings-') > 0) {
+    $(window.location.hash).css('background-color', 'blue');
+    $(window.location.hash).css('color', 'white');
+}
+</script>
+{% endblock %}

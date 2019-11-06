@@ -6,14 +6,47 @@ admin_settings:
   path: /admin/settings/
   defaults: { _controller: AppBundle:Admin:settings}
 
+admin_settings_design:
+  path: /admin/settings/design
+  defaults: { _controller: AppBundle:Admin:settingsDesign}
+
 admin_settings_revert:
   path: /admin/settings/revert/{id}/
   defaults: { _controller: AppBundle:Admin:revertConfig}
 
 admin_court_practices_all:
   path: /admin/practices/
-  defaults: { _controller: AppBundle:Admin:courtPracticeViewAll}
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:viewAllPractices}
 
 admin_court_practices_add:
   path: /admin/practices/add
-  defaults: { _controller: AppBundle:Admin:courtPracticeAdd}
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:addPractice}
+
+admin_court_practices_edit:
+  path: /admin/practice/{id}/
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:editPractice}
+
+admin_court_practices_remove:
+  path: /admin/practice/remove/{id}/
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:removePractice}
+
+admin_works_all:
+  path: /admin/works/
+  defaults: { _controller: AppBundle:WorkAdmin:getViewAllWorks}
+
+admin_works_add:
+  path: /admin/works/add/
+  defaults: { _controller: AppBundle:WorkAdmin:addWork}
+
+admin_works_view:
+  path: /admin/works/{id}/
+  defaults: { _controller: AppBundle:WorkAdmin:getViewWork}
+
+admin_works_service_add:
+  path: /admin/works/service/add/
+  defaults: { _controller: AppBundle:WorkAdmin:addService}
+
+admin_works_service_edit:
+  path: /admin/works/service/{id}/
+  defaults: { _controller: AppBundle:WorkAdmin:editService}
+

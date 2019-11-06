@@ -7,6 +7,7 @@ use AppBundle\Service\SiteConfig;
 use ApplicBundle\Entity\Applic;
 use ApplicBundle\Repository\ApplicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class MyController extends Controller
 {
@@ -14,6 +15,8 @@ class MyController extends Controller
      * @var SiteConfig
      */
     private $siteConfig;
+
+    private $stat;
 
     public function __construct()
     {
@@ -63,6 +66,13 @@ class MyController extends Controller
         $this->stat = $newStat;
     }
 
+    public function render($view, array $parameters = [], Response $response = null)
+    {
+        $parameters['siteConfig'] = $this->siteConfig->config;
+
+        return parent::render($view, $parameters, $response);
+    }
+
     public function getConfig()
     {
         return $this->siteConfig;
@@ -71,5 +81,11 @@ class MyController extends Controller
     public function getEntityManager()
     {
         return $this->getDoctrine()->getManager();
+    }
+
+    public function saveEntity($entity)
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
     }
 }

@@ -1,0 +1,33 @@
+{% extends 'admin/main.html.twig' %}
+
+{% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
+{% block title %}Отзыв №{{ note.id }}{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="page-container">
+    <div class="main-content-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">
+                                {% if edit %}
+                                Отзыв №{{ note.id }}
+                                {% else %}
+                                    Создать новый отзыв
+                                {% endif %}
+                            </h4>
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -24,6 +24,7 @@
                                         <th>Тема</th>
                                         <th>Сообщение</th>
                                         <th>Приоритетность</th>
+                                        <th>Действия</th>
                                         <th>Дата</th>
                                     </tr>
                                     </thead>
@@ -44,6 +45,10 @@
                                             <td>{{ item.theme }}</td>
                                             <td>{{ item.content }}</td>
                                             <td><span style="color:{{ color }}">{{ practicePriority }}</span></td>
+                                            <td>
+                                                <a href="{{ path('admin_court_practices_edit', {id: item.id}) }}" title="Редактировать" style="color:green"><i class="ti-pencil-alt"></i></a>
+                                                <a onclick="removePractice({{ item.id }}, '{{ item.theme }}')" title="Удалить" style="color:red"><i class="ti-close"></i></a>
+                                            </td>
                                             <td>{{ item.created | date('d.m.y H:i:s') }}</td>
                                         </tr>
                                     {% endfor %}
@@ -59,6 +64,13 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script>
+function removePractice(id, theme) {
+    if (confirm("Вы действительно хотите удалить судебную практику №" + id + ': "' + theme + '"')) {
+        window.location = '/admin/practice/remove/' + id;
+    }
+}
+</script>
 <script src="/assets/js/datatables/jquery.dataTables.js"></script>
 <script src="/assets/js/datatables/jquery.dataTables.min.js"></script>
 <script src="/assets/js/datatables/dataTables.bootstrap4.min.js"></script>

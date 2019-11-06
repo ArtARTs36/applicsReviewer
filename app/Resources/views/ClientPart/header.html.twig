@@ -1,0 +1,33 @@
+<div id="navBar-back">&nbsp;</div>
+<nav class="navbar navbar-expand-md fixed-top light-green lighten-5 navbar-light" id="navBar" style="background: rgba(255, 0, 0, 0.5);">
+    <a class="navbar-brand" href="/" style="color:#000">Территория права</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto myNavbar">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink"               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Услуги</a>
+                <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
+                    {% for item in worksBlock %}
+                    <a class="dropdown-item waves-effect waves-light" href="{{ path('page_works_service', {workUrl: item.url}) }}">{{item.name}}</a>
+                    {% endfor %}
+                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('page_services_documents') }}">Документы онлайн</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('page_court_practices') }}">Судебная практика</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('guestbook_index') }}">Отзывы</a>
+            </li>
+        </ul>
+        <a class="btn btn-danger" href="{{ path('page_callback') }}"><i class="fas fa-phone-square"></i> Заказать звонок</a>
+    </div>
+</nav>
+<style>
+    .myNavbar div a:hover{
+        background: #ccc;
+    }
+</style>

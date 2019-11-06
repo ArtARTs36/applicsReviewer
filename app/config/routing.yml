@@ -10,3 +10,9 @@ admin_applics:
 
 user:
     resource: '@UserBundle/Resources/config/routing.yml'
+
+page:
+    resource: '@AppBundle/Resources/config/routing_pages.yml'
+
+guestbook:
+        resource: '@GuestBookBundle/Resources/config/routing.yml'

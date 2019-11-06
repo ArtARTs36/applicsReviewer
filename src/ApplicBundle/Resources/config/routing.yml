@@ -10,17 +10,25 @@ admin_applics_set_result:
   path: /admin/applics/setResult/
   defaults: { _controller: ApplicBundle:ApplicAdmin:applicSetResult}
 
-admin_vocab_bad_clients_add:
-  path: /admin/vocab/bad-clients/add
-  defaults: { _controller: ApplicBundle:VocabAdmin:addBadClient}
-
 admin_vocab_bad_clients_all:
   path: /admin/vocab/bad-clients
-  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllBadClient}
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:viewAllBadClient}
+
+admin_vocab_bad_clients_add:
+  path: /admin/vocab/bad-clients/add
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:addClient}
+
+admin_vocab_bad_clients_edit:
+  path: /admin/vocab/bad-client/{id}/
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:editClient}
+
+admin_vocab_bad_clients_remove:
+  path: /admin/vocab/bad-client/remove/{id}/
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:removeClient}
 
 admin_vocab_bad_clients_transfer:
   path: /admin/vocab/bad-clients/transfer/
-  defaults: { _controller: ApplicBundle:VocabAdmin:transferClient}
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:transferClient}
 
 cron_no_process_applics:
   path: /admin/cron/noProcessApplics/{key}/
@@ -34,18 +42,42 @@ admin_offer_document_add:
   path: /admin/offer/documents/add
   defaults: { _controller: ApplicBundle:OfferDocumentAdmin:add}
 
+admin_offer_document_edit:
+  path: /admin/offer/document/{id}/
+  defaults: { _controller: ApplicBundle:OfferDocumentAdmin:editOffer}
+
+admin_offer_document_remove:
+  path: /admin/offer/document/remove/{id}/
+  defaults: { _controller: ApplicBundle:OfferDocumentAdmin:removeOffer}
+
 admin_vocab_required_doc_all:
-  path: /admin/vocab/required-docs
-  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllRequiredDoc}
+  path: /admin/vocab/required-docs/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:viewAllDocs}
 
 admin_vocab_required_doc_add:
-  path: /admin/vocab/required-docs/add
-  defaults: { _controller: ApplicBundle:VocabAdmin:addRequiredDoc}
+  path: /admin/vocab/required-docs/add/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:addDoc}
+
+admin_vocab_required_doc_edit:
+  path: /admin/vocab/required-doc/{id}/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:editDoc}
+
+admin_vocab_required_doc_remove:
+  path: /admin/vocab/required-doc/remove/{id}/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:removeDoc}
 
 admin_vocab_delivery_method_all:
   path: /admin/vocab/delivery-methods
-  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllDeliveryMethod}
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:viewAllMethod}
 
 admin_vocab_delivery_method_add:
   path: /admin/vocab/delivery-methods/add
-  defaults: { _controller: ApplicBundle:VocabAdmin:addDeliveryMethod}
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:addMethod}
+
+admin_vocab_delivery_method_edit:
+  path: /admin/vocab/delivery-method/{id}/
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:editMethod}
+
+admin_vocab_delivery_method_remove:
+  path: /admin/vocab/delivery-method/remove/{id}/
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:removeMethod}

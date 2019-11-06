@@ -1,0 +1,35 @@
+{% extends 'admin/main.html.twig' %}
+
+{% block title %}{% if edit %}Блок №{{ service.work.id }} - {% else %}Создать блок дел{% endif %} - Услуги по изготовлению документов{% endblock %}
+
+{% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <div class="page-container">
+        <div class="main-content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">
+                                    {% if edit %}
+                                        Блок "{{ service.work.name }}"
+                                    {% else %}
+                                        Создать новый блок дел
+                                    {% endif %}
+                                </h4>
+                                <br/>
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+{% endblock %}

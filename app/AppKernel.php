@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new ApplicBundle\ApplicBundle(),
             new MobilePushBundle\MobilePushBundle(),
             new UserBundle\UserBundle(),
+            new GuestBookBundle\GuestBookBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

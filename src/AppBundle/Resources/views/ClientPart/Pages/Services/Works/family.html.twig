@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{work.name}}{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container" class="container-fluid my-container">
+            <h2 class="secondary-heading mb-3">
+                {{ work.name }}
+            </h2>
+            <div class="container">
+                {% set myCounter = 0 %}
+                {% for item in work.services %}
+                {% if myCounter == 0 or myCounter % 3 == 0 %}
+                {% if myCounter != 0 %}
+            </div>
+            <br/>
+            {% endif %}
+            <div class="row">
+                {% set isNewRow = false %}
+                {% endif %}
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><a><i class="{{ item.getIconClass }}"></i>
+                                    {{ item.name }}</a></h4>
+                            <p class="card-text">{{ item.content }}</p>
+                            <a href="#" class="btn btn-primary">Получить помощь</a>
+                        </div>
+
+                    </div>
+                </div>
+                {% if loop.last %}
+            </div>
+        <br/>
+            {% endif %}
+            {% set myCounter = myCounter + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

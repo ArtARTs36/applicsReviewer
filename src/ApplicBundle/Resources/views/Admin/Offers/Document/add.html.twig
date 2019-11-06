@@ -1,5 +1,7 @@
 {% extends 'admin/main.html.twig' %}
 
+{% block title %}{% if edit %}Услуга-Документ №{{ offer.id }} - {% endif %}Создать услугу по изготовлению документов{% endblock %}
+
 {% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
 {% block content %}
@@ -10,7 +12,7 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Услуги по изготовлению документов: добавить</h4>
+                                <h4 class="header-title">Услуги по изготовлению документов: {% if edit %}№{{ offer.id }} "{{ offer.name }}"{% else %}добавить{% endif %}</h4>
                                 {{ form_start(form) }}
                                 {{ form_widget(form) }}
                                 {{ form_end(form) }}

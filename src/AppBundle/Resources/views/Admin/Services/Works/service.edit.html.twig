@@ -1,0 +1,67 @@
+{% extends 'admin/main.html.twig' %}
+
+{% block title %}{% if edit %}Услуга №{{ service.id }} - {{ service.work.name }} - {% else %}Создать услугу{% endif %} - Услуги по изготовлению документов{% endblock %}
+
+{% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="page-container">
+    <div class="main-content-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">
+                                {% if edit %}
+                                {{ service.name }} - Блок "{{ service.work.name }}"
+                                {% else %}
+                                    Создать новую услугу
+                                {% endif %}
+                            </h4>
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <style>
+        .selIcon {
+            /*background: #eee;*/
+            border:8px;
+            font-size:24px;
+            cursor:pointer;
+            margin:5px;
+        }
+        .selIcon:hover,.selIcon.curr{
+            background: #ccc;
+        }
+    </style>
+    <script>
+        let iconClasses = {{ iconClasses | json_encode }};
+        let iconClassesCount = '{{ iconClassesCount }}';
+        let iconsString = '';
+
+        window.onload = function() {
+            let currIcon = $('#edit_work_service_icon').val();
+            for (i = 0; i < iconClassesCount; i++) {
+                iconsString += '<i id="icon-'+ i +'" onclick="setIcon('+ i + ')" class="selIcon ' + ((currIcon == i ? 'curr ': '') + '') + iconClasses[i] + '"></i> ';
+            }
+
+            $('#edit_work_service_icon').hide();
+            $('.form-group:eq(2)').append("\n<br/>" + iconsString);
+        }
+
+        function setIcon(icon)
+        {
+            $('.selIcon').css('background', '');
+            $('#icon-'+ icon).css('background', '#ccc');
+            $('#edit_work_service_icon').val(icon);
+        }
+    </script>
+{% endblock %}
