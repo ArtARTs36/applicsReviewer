@@ -34,6 +34,14 @@ admin_offer_document_add:
   path: /admin/offer/documents/add
   defaults: { _controller: ApplicBundle:OfferDocumentAdmin:add}
 
+admin_offer_document_edit:
+  path: /admin/offer/document/{id}/
+  defaults: { _controller: ApplicBundle:OfferDocumentAdmin:editOffer}
+
+admin_offer_document_remove:
+  path: /admin/offer/document/remove/{id}/
+  defaults: { _controller: ApplicBundle:OfferDocumentAdmin:removeOffer}
+
 admin_vocab_required_doc_all:
   path: /admin/vocab/required-docs
   defaults: { _controller: ApplicBundle:VocabAdmin:viewAllRequiredDoc}

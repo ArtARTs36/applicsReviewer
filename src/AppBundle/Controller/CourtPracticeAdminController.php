@@ -82,7 +82,6 @@ class CourtPracticeAdminController extends MyAdminController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var CourtPractice $practice */
             $practice = $form->getViewData();
-            $practice->setCreated(new \DateTime());
 
             $this->getEntityManager()->persist($practice);
             $this->getEntityManager()->flush($practice);

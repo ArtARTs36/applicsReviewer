@@ -10,7 +10,7 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Услуги по изготовлению документов: добавить</h4>
+                                <h4 class="header-title">Услуги по изготовлению документов: {% if edit %}№{{ offer.id }} "{{ offer.name }}"{% else %}добавить{% endif %}</h4>
                                 {{ form_start(form) }}
                                 {{ form_widget(form) }}
                                 {{ form_end(form) }}

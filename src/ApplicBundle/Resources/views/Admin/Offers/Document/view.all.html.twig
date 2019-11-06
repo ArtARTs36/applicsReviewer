@@ -24,6 +24,7 @@
                                         <th>Название</th>
                                         <th>Необходимые документы</th>
                                         <th>Способы доставки</th>
+                                        <th>Действия</th>
                                         <th>Стоимость</th>
                                         <th>Дата</th>
                                     </tr>
@@ -47,6 +48,10 @@
                                                         {{ method.name }},
                                                     {% endif %}
                                                 {% endfor %}</td>
+                                            <td>
+                                                <a href="{{ path('admin_offer_document_edit', {id: item.id}) }}" title="Редактировать" style="color:green"><i class="ti-pencil-alt"></i></a>
+                                                <a onclick="removeOffer({{ item.id }}, '{{ item.name }}')" title="Удалить" style="color:red"><i class="ti-close"></i></a>
+                                            </td>
                                             <td>{{ item.price }} руб.</td>
                                             <td>{{ item.created | date('d.m.y H:i:s') }}</td>
                                         </tr>
@@ -63,6 +68,13 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script>
+function removeOffer(id, name) {
+    if (confirm("Вы действительно хотите удалить услугу по изготовлению документов №" + id + ': "' + name + '"')) {
+        window.location = '/admin/offer/document/remove/' + id;
+    }
+}
+</script>
 <script src="/assets/js/datatables/jquery.dataTables.js"></script>
 <script src="/assets/js/datatables/jquery.dataTables.min.js"></script>
 <script src="/assets/js/datatables/dataTables.bootstrap4.min.js"></script>
