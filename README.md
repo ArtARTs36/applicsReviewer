@@ -1,4 +1,12 @@
-applicsReviewer
+applicsReviewer - платформа для сайта "Территория права"
 ===============
 
-A Symfony project created on October 3, 2019, 11:26 pm.
+Порядок установки:
+
+- выполнить: git clone https://github.com/ArtARTs36/applicsReviewer.git
+
+- установить Composer (https://getcomposer.org)
+
+- выполнить: composer install
+
+- выполнить: php bin/console doctrine:migrations:migrate
