@@ -86,7 +86,6 @@ class VocabBadClientAdminController extends MyAdminController
         }
     }
 
-
     /**
      * Редактирование клиента из черного списка
      *

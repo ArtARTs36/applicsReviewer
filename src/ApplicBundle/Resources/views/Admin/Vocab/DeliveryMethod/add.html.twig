@@ -2,6 +2,8 @@
 
 {% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
+{% block title %}{% if edit %}№{{ method.id }} - Способ доставки {% else %}Добавить способ доставки{% endif %}{% endblock %}
+
 {% block content %}
     <div class="page-container">
         <div class="main-content-inner">
@@ -10,7 +12,7 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Способы доставки: добавить</h4>
+                                <h4 class="header-title">Способы доставки: {% if edit %}№{{ method.id }} {{ method.name }}{% else %}добавить{% endif %}</h4>
                                 {{ form_start(form) }}
                                 {{ form_widget(form) }}
                                 {{ form_end(form) }}

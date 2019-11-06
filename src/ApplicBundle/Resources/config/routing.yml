@@ -68,8 +68,16 @@ admin_vocab_required_doc_remove:
 
 admin_vocab_delivery_method_all:
   path: /admin/vocab/delivery-methods
-  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllDeliveryMethod}
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:viewAllMethod}
 
 admin_vocab_delivery_method_add:
   path: /admin/vocab/delivery-methods/add
-  defaults: { _controller: ApplicBundle:VocabAdmin:addDeliveryMethod}
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:addMethod}
+
+admin_vocab_delivery_method_edit:
+  path: /admin/vocab/delivery-method/{id}/
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:editMethod}
+
+admin_vocab_delivery_method_remove:
+  path: /admin/vocab/delivery-method/remove/{id}/
+  defaults: { _controller: ApplicBundle:VocabDeliveryMethodAdmin:removeMethod}
