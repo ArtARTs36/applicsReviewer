@@ -13,7 +13,7 @@ class GuestBookController extends MyClientPartController
     public function getHomeAction(Request $request)
     {
         $noteRepo = $this->getEntityManager()->getRepository(Note::class);
-        $notes = $noteRepo->findBy(['active' => true]);
+        $notes = $noteRepo->findBy(['active' => true], ['id' => 'desc']);
 
         $form = $this->createForm(AddGuestBookNoteForm::class);
 

@@ -37,6 +37,11 @@ class WorkService
     private $work;
 
     /**
+     * @ORM\Column(type="datetime", length=1000)
+     */
+    private $created;
+
+    /**
      * @ORM\Column(type="integer", length=1000)
      */
     private $icon = null;
@@ -44,6 +49,11 @@ class WorkService
     private $iconClass = null;
 
     private $iconHelper;
+
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
 
     /**
      * @return mixed
@@ -123,6 +133,22 @@ class WorkService
     public function setIcon($icon)
     {
         $this->icon = $icon;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 
     public function getIconClass()

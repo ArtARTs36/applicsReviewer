@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Work;
 use AppBundle\Entity\WorkService;
+use AppBundle\Form\EditWorkForm;
 use AppBundle\Form\EditWorkService;
 use AppBundle\Helper\IconHelper;
 use AppBundle\Interfaces\MyAdminController;
@@ -88,13 +89,47 @@ class WorkAdminController extends MyAdminController
             return $this->redirectToRoute('admin_works_view', ['id' => $newService->getWork()->getId()]);
         }
 
+        $iconHelper = new IconHelper();
+
         return $this->render('@App/Admin/Services/Works/service.edit.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
             'service' => $newService,
             'form' => $form->createView(),
             'edit' => false,
-            'iconClasses' => IconHelper::$iconClasses,
-            'iconClassesCount' => count(IconHelper::$iconClasses)
+            'iconClasses' => $iconHelper->getClasses(),
+            'iconClassesCount' => count($iconHelper->getClasses())
+        ]);
+    }
+
+    /**
+     * Создать блок дел
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function addWorkAction(Request $request)
+    {
+        $newWork = new Work();
+        $form = $this->createForm(EditWorkForm::class, $newWork, ['isNewEntity' => true]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Work $work */
+            $work = $form->getData();
+            $work->setCreated(new \DateTime());
+
+            $this->getEntityManager()->persist($work);
+            $this->getEntityManager()->flush($work);
+
+            return $this->redirectToRoute('admin_works_view', ['id' => $work->getId()]);
+        }
+
+        return $this->render('@App/Admin/Services/Works/work.edit.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
+            'service' => $newWork,
+            'form' => $form->createView(),
+            'edit' => false
         ]);
     }
 }

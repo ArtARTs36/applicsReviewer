@@ -26,6 +26,10 @@ admin_works_all:
   path: /admin/works/
   defaults: { _controller: AppBundle:WorkAdmin:getViewAllWorks}
 
+admin_works_add:
+  path: /admin/works/add/
+  defaults: { _controller: AppBundle:WorkAdmin:addWork}
+
 admin_works_view:
   path: /admin/works/{id}/
   defaults: { _controller: AppBundle:WorkAdmin:getViewWork}
@@ -37,3 +41,4 @@ admin_works_service_add:
 admin_works_service_edit:
   path: /admin/works/service/{id}/
   defaults: { _controller: AppBundle:WorkAdmin:editService}
+

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Модель для дел
+ * Модель для блока дел
  *
  * @ORM\Entity
  * @ORM\Table(name="works")
