@@ -51,12 +51,20 @@ admin_offer_document_remove:
   defaults: { _controller: ApplicBundle:OfferDocumentAdmin:removeOffer}
 
 admin_vocab_required_doc_all:
-  path: /admin/vocab/required-docs
-  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllRequiredDoc}
+  path: /admin/vocab/required-docs/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:viewAllDocs}
 
 admin_vocab_required_doc_add:
-  path: /admin/vocab/required-docs/add
-  defaults: { _controller: ApplicBundle:VocabAdmin:addRequiredDoc}
+  path: /admin/vocab/required-docs/add/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:addDoc}
+
+admin_vocab_required_doc_edit:
+  path: /admin/vocab/required-doc/{id}/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:editDoc}
+
+admin_vocab_required_doc_remove:
+  path: /admin/vocab/required-doc/remove/{id}/
+  defaults: { _controller: ApplicBundle:RequiredDocAdmin:removeDoc}
 
 admin_vocab_delivery_method_all:
   path: /admin/vocab/delivery-methods

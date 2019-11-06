@@ -22,6 +22,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Название</th>
+                                        <th>Действия</th>
                                         <th>Дата</th>
                                     </tr>
                                     </thead>
@@ -30,6 +31,10 @@
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td>{{ item.name }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_vocab_required_doc_edit', {id: item.id}) }}" title="Редактировать" style="color:green"><i class="ti-pencil-alt"></i></a>
+                                                <a onclick="removeDoc({{ item.id }}, '{{ item.name }}')" title="Удалить" style="color:red"><i class="ti-close"></i></a>
+                                            </td>
                                             <td>{{ item.created | date('d.m.y H:i:s') }}</td>
                                         </tr>
                                     {% endfor %}
@@ -45,6 +50,13 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script>
+function removeDoc(id, name) {
+    if (confirm('Вы действительно хотите удалить из документ №' + id + ': "' + name + '"')) {
+        window.location = '/admin/vocab/required-doc/remove/' + id;
+    }
+}
+</script>
 <script src="/assets/js/datatables/jquery.dataTables.js"></script>
 <script src="/assets/js/datatables/jquery.dataTables.min.js"></script>
 <script src="/assets/js/datatables/dataTables.bootstrap4.min.js"></script>

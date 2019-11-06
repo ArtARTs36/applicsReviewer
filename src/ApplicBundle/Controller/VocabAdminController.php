@@ -16,42 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class VocabAdminController extends MyAdminController
 {
-    public function viewAllRequiredDocAction()
-    {
-        $docRepository = $this->getEntityManager()->getRepository(OfferDocumentRequiredDoc::class);
-        /** @var OfferDocumentRequiredDoc $docs */
-        $docs = $docRepository->findAll();
-
-        return $this->render('@Applic/Admin/Vocab/RequiredDoc/view.all.html.twig', [
-            'docs' => $docs
-        ]);
-    }
-
-    public function addRequiredDocAction(Request $request)
-    {
-        $form = $this->createForm(AddRequiredDoc::class, null);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var OfferDocumentRequiredDoc $practice */
-            $doc = $form->getViewData();
-            $doc->setCreated(new \DateTime());
-
-            $this->getEntityManager()->persist($doc);
-            $this->getEntityManager()->flush($doc);
-
-            return $this->redirectToRoute('admin_vocab_required_doc_all');
-        }
-
-        return $this->render('@Applic/Admin/Vocab/RequiredDoc/add.html.twig', [
-            'form' => $form->createView(),
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-    }
-
-
-
     public function viewAllDeliveryMethodAction()
     {
         $methodRepository = $this->getEntityManager()->getRepository(OfferDocumentDeliveryMethod::class);
