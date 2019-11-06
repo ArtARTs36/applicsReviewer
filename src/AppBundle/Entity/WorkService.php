@@ -45,15 +45,6 @@ class WorkService
 
     private $iconHelper;
 
-    public function __construct()
-    {
-        $this->iconHelper = new IconHelper();
-
-        if ($this->icon !== null) {
-            $this->iconClass = $this->iconHelper->getClass($this->icon);
-        }
-    }
-
     /**
      * @return mixed
      */
@@ -136,6 +127,10 @@ class WorkService
 
     public function getIconClass()
     {
+        if (empty($this->iconHelper)) {
+            $this->iconHelper = new IconHelper();
+        }
+
         if ($this->iconClass === null && $this->icon !== null) {
             $this->iconClass = $this->iconHelper->getClass($this->icon);
         }

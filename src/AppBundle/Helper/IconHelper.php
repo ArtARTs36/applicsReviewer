@@ -24,13 +24,13 @@ class IconHelper
     {
         $this->loadIconClasses();
 
-        return $this->iconClasses[$icon];
+        return $this->iconClasses[$icon] ?? null;
     }
 
     public function loadIconClasses()
     {
         if (empty($this->iconClasses)) {
-            $this->iconClasses = json_decode(file_get_contents('src/AppBundle/Resources/views/icons.json'));
+            $this->iconClasses = json_decode(file_get_contents('../src/AppBundle/Resources/views/icons.json'));
         }
     }
 }

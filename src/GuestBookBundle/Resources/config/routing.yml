@@ -1,6 +1,10 @@
 guestbook_index:
   path: /guestbook/
-  defaults: { _controller: GuestBookBundle:GuestBook:GetHome}
+  defaults: { _controller: GuestBookBundle:GuestBook:getHome}
+
+guestbook_success:
+  path: /guestbook/success/
+  defaults: { _controller: GuestBookBundle:GuestBook:getSuccess}
 
 admin_guestbook_admin_notes_all:
   path: /admin/guestbook/notes/

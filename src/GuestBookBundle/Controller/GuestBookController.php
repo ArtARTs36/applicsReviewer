@@ -30,7 +30,7 @@ class GuestBookController extends MyClientPartController
             $sender = new PushAllMobilePushSender();
             $sender->push('Отзыв №'. $newNote->getId(), $newNote->getMessage());
 
-            return $this->redirectToRoute('guestbook_index');
+            return $this->redirectToRoute('guestbook_success');
         }
 
         $sumRating = 0;
@@ -42,9 +42,14 @@ class GuestBookController extends MyClientPartController
         $middleRating = floor($sumRating / count($notes));
 
         return $this->render('@GuestBook/ClientPart/home.html.twig', [
-            'notes' => $notes,
+            'notes' => null,
             'form' => $form->createView(),
             'middleRating' => $middleRating
         ]);
+    }
+
+    public function getSuccessAction()
+    {
+        return $this->render('@GuestBook/ClientPart/success.html.twig');
     }
 }
