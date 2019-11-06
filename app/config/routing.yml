@@ -13,3 +13,6 @@ user:
 
 page:
     resource: '@AppBundle/Resources/config/routing_pages.yml'
+
+guestbook:
+        resource: '@GuestBookBundle/Resources/config/routing.yml'

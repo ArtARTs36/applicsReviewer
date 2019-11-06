@@ -60,13 +60,15 @@ class WorkAdminController extends MyAdminController
             return $this->redirectToRoute('admin_works_view', ['id' => $service->getWork()->getId()]);
         }
 
+        $iconHelper = new IconHelper();
+
         return $this->render('@App/Admin/Services/Works/service.edit.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
             'service' => $service,
             'form' => $form->createView(),
             'edit' => true,
-            'iconClasses' => IconHelper::$iconClasses,
-            'iconClassesCount' => count(IconHelper::$iconClasses)
+            'iconClasses' => $iconHelper->getClasses(),
+            'iconClassesCount' => count($iconHelper->getClasses())
         ]);
     }
 

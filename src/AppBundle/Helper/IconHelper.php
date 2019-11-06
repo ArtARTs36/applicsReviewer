@@ -4,19 +4,33 @@ namespace AppBundle\Helper;
 
 class IconHelper
 {
-    public static $iconClasses = [
-        0 => 'fas fa-people-carry',
-        1 => 'fas fa-briefcase',
-        2 => 'fas fa-car'
-    ];
+    private $iconClasses = null;
 
-    public static function getInversionIconClasses()
+    public function getInversionIconClasses()
     {
-        return array_flip(self::$iconClasses);
+        $this->loadIconClasses();
+
+        return array_flip($this->iconClasses);
     }
 
-    public static function getClass($icon)
+    public function getClasses()
     {
-        return self::$iconClasses[$icon];
+        $this->loadIconClasses();
+
+        return $this->iconClasses;
+    }
+
+    public function getClass($icon)
+    {
+        $this->loadIconClasses();
+
+        return $this->iconClasses[$icon];
+    }
+
+    public function loadIconClasses()
+    {
+        if (empty($this->iconClasses)) {
+            $this->iconClasses = json_decode(file_get_contents('src/AppBundle/Resources/views/icons.json'));
+        }
     }
 }

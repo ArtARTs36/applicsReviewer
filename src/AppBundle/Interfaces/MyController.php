@@ -82,4 +82,10 @@ class MyController extends Controller
     {
         return $this->getDoctrine()->getManager();
     }
+
+    public function saveEntity($entity)
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+    }
 }

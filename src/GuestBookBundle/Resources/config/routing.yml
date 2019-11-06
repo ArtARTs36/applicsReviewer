@@ -1,0 +1,11 @@
+guestbook_index:
+  path: /guestbook/
+  defaults: { _controller: GuestBookBundle:GuestBook:GetHome}
+
+admin_guestbook_admin_notes_all:
+  path: /admin/guestbook/notes/
+  defaults: { _controller: GuestBookBundle:GuestBookAdmin:viewAll}
+
+admin_guestbook_admin_note_edit:
+  path: /admin/guestbook/note/{id}/
+  defaults: { _controller: GuestBookBundle:GuestBookAdmin:editNote}

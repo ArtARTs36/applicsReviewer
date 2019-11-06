@@ -13,3 +13,7 @@ page_services_document:
 page_works_service:
   path: /services/works/{workUrl}/
   defaults: { _controller: AppBundle:Page:getWorkPage}
+
+page_court_practices:
+  path: /court-practices/
+  defaults: { _controller: AppBundle:CourtPractice:getAllPractices}
