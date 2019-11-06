@@ -25,6 +25,7 @@
                                         <th>Телефон</th>
                                         <th>Email</th>
                                         <th>Комментарий</th>
+                                        <th>Действия</th>
                                         <th>Дата</th>
                                     </tr>
                                     </thead>
@@ -36,6 +37,10 @@
                                             <td>{{ item.phone }}</td>
                                             <td>{{ item.email }}</td>
                                             <td>{{ item.comment }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_vocab_bad_clients_edit', {id: item.id}) }}" title="Редактировать" style="color:green"><i class="ti-pencil-alt"></i></a>
+                                                <a onclick="removePractice({{ item.id }})" title="Удалить" style="color:red"><i class="ti-close"></i></a>
+                                            </td>
                                             <td>{{ item.created | date('d.m.y H:i:s') }}</td>
                                         </tr>
                                     {% endfor %}
@@ -51,6 +56,13 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script>
+function removePractice(id) {
+    if (confirm("Вы действительно хотите удалить из черного списка клиента №" + id)) {
+        window.location = '/admin/vocab/bad-client/remove/' + id;
+    }
+}
+</script>
 <script src="/assets/js/datatables/jquery.dataTables.js"></script>
 <script src="/assets/js/datatables/jquery.dataTables.min.js"></script>
 <script src="/assets/js/datatables/dataTables.bootstrap4.min.js"></script>

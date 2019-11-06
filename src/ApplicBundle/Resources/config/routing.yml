@@ -10,17 +10,25 @@ admin_applics_set_result:
   path: /admin/applics/setResult/
   defaults: { _controller: ApplicBundle:ApplicAdmin:applicSetResult}
 
-admin_vocab_bad_clients_add:
-  path: /admin/vocab/bad-clients/add
-  defaults: { _controller: ApplicBundle:VocabAdmin:addBadClient}
-
 admin_vocab_bad_clients_all:
   path: /admin/vocab/bad-clients
-  defaults: { _controller: ApplicBundle:VocabAdmin:viewAllBadClient}
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:viewAllBadClient}
+
+admin_vocab_bad_clients_add:
+  path: /admin/vocab/bad-clients/add
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:addClient}
+
+admin_vocab_bad_clients_edit:
+  path: /admin/vocab/bad-client/{id}/
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:editClient}
+
+admin_vocab_bad_clients_remove:
+  path: /admin/vocab/bad-client/remove/{id}/
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:removeClient}
 
 admin_vocab_bad_clients_transfer:
   path: /admin/vocab/bad-clients/transfer/
-  defaults: { _controller: ApplicBundle:VocabAdmin:transferClient}
+  defaults: { _controller: ApplicBundle:VocabBadClientAdmin:transferClient}
 
 cron_no_process_applics:
   path: /admin/cron/noProcessApplics/{key}/
