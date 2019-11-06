@@ -2,7 +2,7 @@
 
 {% form_theme form with ['bootstrap/bootstrap_3_layout.html.twig'] only %}
 
-{% block title %}{% if edit %}Клиент №{{ method.id }} - Черный список {% else %}Добавить клиента в черный список{% endif %}{% endblock %}
+{% block title %}{% if edit %}Клиент №{{ client.id }} - Черный список {% else %}Добавить клиента в черный список{% endif %}{% endblock %}
 
 {% block content %}
     <div class="page-container">
