@@ -42,7 +42,7 @@ class GuestBookController extends MyClientPartController
         $middleRating = floor($sumRating / count($notes));
 
         return $this->render('@GuestBook/ClientPart/home.html.twig', [
-            'notes' => null,
+            'notes' => $notes,
             'form' => $form->createView(),
             'middleRating' => $middleRating
         ]);

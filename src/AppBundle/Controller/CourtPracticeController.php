@@ -13,7 +13,7 @@ class CourtPracticeController extends MyClientPartController
         $practices = $repo->findBy([]);
 
         return $this->render('@App/ClientPart/Pages/CourtPractices/home.html.twig', [
-            'practices' => $practices
+            'courtPractices' => $practices
         ]);
     }
 }
