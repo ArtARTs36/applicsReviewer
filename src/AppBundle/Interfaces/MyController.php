@@ -14,7 +14,7 @@ class MyController extends Controller
     /**
      * @var SiteConfig
      */
-    private $siteConfig;
+    protected $siteConfig;
 
     private $stat;
 

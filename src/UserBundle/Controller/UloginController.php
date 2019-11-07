@@ -2,7 +2,9 @@
 
 namespace UserBundle\Controller;
 
+use AppBundle\Interfaces\MyClientPartController;
 use AppBundle\Interfaces\MyController;
+use AppBundle\Service\SiteConfig;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use UserBundle\Entity\User;
 use UserBundle\Repository\UserRepository;
 
-class UloginController extends MyController
+class UloginController extends MyClientPartController
 {
     private $authenticationManager;
     private $tokenStorage;
@@ -25,6 +27,8 @@ class UloginController extends MyController
         $this->container = $container;
         $this->authenticationManager = $authenticationManager;
         $this->tokenStorage = $tokenStorage;
+
+        parent::__construct();
     }
 
     public function getUserDataByTokenULoginAction(Request $request)
@@ -50,7 +54,11 @@ class UloginController extends MyController
                 return $this->redirectToRoute('my_profile');
 
             } else { // Регистрируем
-                return $this->userRegister($data, $request);
+                if ($this->siteConfig->getValue(SiteConfig::PARAM_IS_NEW_USER_REGISTER_ADMIN)) {
+                    return $this->userRegister($data, $request);
+                } else {
+                    return $this->redirectToRoute('homepage');
+                }
             }
 
         } catch (\LogicException $exception) {

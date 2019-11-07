@@ -3,6 +3,15 @@
 use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__.'/../vendor/autoload.php';
+
+if (!file_exists(__DIR__. '/../app/config/installer.lock')) {
+    require 'installer.php';
+
+    $installer = new Installer();
+    echo $installer->init();
+    die();
+}
+
 if (PHP_VERSION_ID < 70000) {
     include_once __DIR__.'/../var/bootstrap.php.cache';
 }
