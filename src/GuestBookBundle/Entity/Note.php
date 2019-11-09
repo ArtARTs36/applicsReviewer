@@ -56,6 +56,11 @@ class Note
     private $active;
 
     /**
+     * @ORM\Column(type="string", length=250)
+     */
+    private $IP;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -149,5 +154,21 @@ class Note
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIP()
+    {
+        return $this->IP;
+    }
+
+    /**
+     * @param mixed $IP
+     */
+    public function setIP($IP)
+    {
+        $this->IP = $IP;
     }
 }
