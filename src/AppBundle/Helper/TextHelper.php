@@ -18,6 +18,11 @@ class TextHelper
         return preg_match(self::PATTERN_FIND_LINKS, $text) ? true : false;
     }
 
+    public static function isExistsHTMLTags($text)
+    {
+        return ($text != strip_tags($text));
+    }
+
     private static function retArray($array)
     {
         return (empty($array[0])) ? null : $array;

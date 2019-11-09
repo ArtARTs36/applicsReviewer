@@ -36,6 +36,7 @@ class Note
      * @ORM\Column(type="string", length=250)
      * @Assert\NotBlank
      * @CustomAssert\NoLinksConstraint
+     * @CustomAssert\NoHTMLConstraint
      */
     private $message;
 
