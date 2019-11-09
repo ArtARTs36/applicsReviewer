@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
     </head>
     <body>
     <div>
@@ -24,27 +25,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
-        <script>
-            var openNavBarExpand = false;
-            $('.navbar-toggler').click(function(){
-                openNavBarExpand = (openNavBarExpand !== true);
-                $('#navBar').css('opacity', (openNavBarExpand ? 1 : 0.85));
-            });
-        </script>
-
+    <script type="text/javascript" src="{{asset('assets/js/main.js')}}"></script>
         {% endblock %}
-    <style>
-        #navBar-back {
-            height:75px;
-        }
-        @media (max-width: 768px) {
-            #navBar-back {
-                height:56px;
-            }
-        }
-        .my-container {
-            padding-top:3vh;
-        }
-    </style>
     </body>
 </html>
