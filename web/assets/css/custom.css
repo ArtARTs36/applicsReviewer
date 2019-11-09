@@ -1,0 +1,33 @@
+#our-team .row div{
+    margin-bottom: 10px;
+}
+#navBar {
+    background: rgba(241, 248, 233, .9);
+}
+#navBar-back {
+    height:75px;
+}
+#guestbook{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+}
+#navBar .navbar-toggler-icon{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")}
+@media (max-width: 886px) {
+    #navBar-back {
+        height:92px;
+    }
+    #guestbook {
+        box-shadow:unset;
+    }
+}
+
+@media (max-width: 768px) {
+    #navBar-back {
+        height:56px;
+    }
+}
+.my-container {
+    padding-top:3vh;
+}
+.navbar-toggler{
+    color:#000;
+}
