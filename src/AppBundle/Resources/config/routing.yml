@@ -16,11 +16,19 @@ admin_settings_revert:
 
 admin_court_practices_all:
   path: /admin/practices/
-  defaults: { _controller: AppBundle:Admin:courtPracticeViewAll}
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:viewAllPractices}
 
 admin_court_practices_add:
   path: /admin/practices/add
-  defaults: { _controller: AppBundle:Admin:courtPracticeAdd}
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:addPractice}
+
+admin_court_practices_edit:
+  path: /admin/practice/{id}/
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:editPractice}
+
+admin_court_practices_remove:
+  path: /admin/practice/remove/{id}/
+  defaults: { _controller: AppBundle:CourtPracticeAdmin:removePractice}
 
 admin_works_all:
   path: /admin/works/
