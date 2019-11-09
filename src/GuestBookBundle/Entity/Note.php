@@ -3,6 +3,8 @@
 namespace GuestBookBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Validator\Constraints as CustomAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Модель для отзыва
@@ -32,6 +34,8 @@ class Note
 
     /**
      * @ORM\Column(type="string", length=250)
+     * @Assert\NotBlank
+     * @CustomAssert\NoLinksConstraint
      */
     private $message;
 
