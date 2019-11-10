@@ -35,8 +35,10 @@ class Note
     /**
      * @ORM\Column(type="string", length=250)
      * @Assert\NotBlank
+     * @Assert\Length(min=15, max=1500)
      * @CustomAssert\NoLinksConstraint
      * @CustomAssert\NoHTMLConstraint
+     * @CustomAssert\RequiredRussianTextConstraint
      */
     private $message;
 
