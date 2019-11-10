@@ -89,6 +89,8 @@ class AdminController extends MyAdminController
     {
         $formPushAllSettings = $this->createForm(EditDesignForm::class,
             [
+                EditDesignForm::FIELD_FOOTER_ADDRESS => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_ADDRESS),
+                EditDesignForm::FIELD_FOOTER_EMAIL => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_EMAIL),
                 EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_1 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_1),
                 EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_2 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_2)
             ]
