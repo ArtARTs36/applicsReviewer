@@ -7,9 +7,16 @@
                 </div>
                 <div class="col-md-6 col-lg-7 text-center text-md-right">
 
-                    <!-- Vkontakte -->
+                    <a href="https://ok.ru/group/59988277329956" class="fb-ic">
+                        <i class="fab fa-odnoklassniki white-text mr-4"> </i>
+                    </a>
+
                     <a href="https://vk.com/id249631877" class="fb-ic">
                         <i class="fab fa-vk white-text mr-4"> </i>
+                    </a>
+
+                    <a href="https://www.facebook.com/territoriaprava36/" class="fb-ic">
+                        <i class="fab fa-facebook white-text mr-4"> </i>
                     </a>
 
                     <!--Instagram-->
@@ -26,7 +33,7 @@
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <h6 class="text-uppercase font-weight-bold">Территория права</h6>
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <p>{% if siteConfig.footer is defined and siteConfig.footer.companyDescription %}{{ siteConfig.footer.companyDescription }}{% else %} Описание компании не заполнено{% endif %}</p>
+                <p>{% if siteConfig.footer_company_description is defined and siteConfig.footer_company_description %}{{ siteConfig.footer_company_description }}{% else %} Описание компании не заполнено{% endif %}</p>
             </div>
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                 <h6 class="text-uppercase font-weight-bold">Услуги</h6>
@@ -42,7 +49,7 @@
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                 {% for item in offerDocuments %}
                     <p>
-                        <a href="#">{{ item.name }}</a>
+                        <a href="#">{{ item.name | slice (0, 35)}}..</a>
                     </p>
                 {% endfor %}
 

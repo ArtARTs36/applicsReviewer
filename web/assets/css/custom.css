@@ -22,15 +22,26 @@
         box-shadow:unset;
     }
 }
-
-@media (max-width: 768px) {
-    #navBar-back {
-        height:56px;
-    }
-}
 .my-container {
     padding-top:3vh;
 }
 .navbar-toggler{
     color:#000;
+}
+#homeLogo{
+    font-size:4em; font-weight: bold
+}
+#homeDesc{
+    font-weight: bold; font-size: 1.85em
+}
+@media (max-width: 768px) {
+    #navBar-back {
+        height:56px;
+    }
+    #homeLogo{
+        font-size:1.4em; font-weight: bold
+    }
+    #homeDesc{
+        font-weight: bold; font-size: 1.4em
+    }
 }

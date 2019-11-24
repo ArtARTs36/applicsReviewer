@@ -80,6 +80,8 @@ class AdminController extends MyAdminController
 
             $this->getConfig()->setEntityManager($this->getEntityManager());
             $this->getConfig()->save();
+
+            $this->cacheReset();
         }
 
         return $formPushAllSettings;
@@ -92,7 +94,8 @@ class AdminController extends MyAdminController
                 EditDesignForm::FIELD_FOOTER_ADDRESS => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_ADDRESS),
                 EditDesignForm::FIELD_FOOTER_EMAIL => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_EMAIL),
                 EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_1 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_1),
-                EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_2 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_2)
+                EditDesignForm::FIELD_FOOTER_CONTACT_PHONE_2 => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_PHONE_2),
+                EditDesignForm::FIELD_FOOTER_COMPANY_DESCRIPTION => $this->getConfig()->getValue(SiteConfig::PARAM_FOOTER_COMPANY_DESCRIPTION),
             ]
         );
 
@@ -121,8 +124,15 @@ class AdminController extends MyAdminController
                 $data[EditDesignForm::FIELD_FOOTER_ADDRESS]
             );
 
+            $this->getConfig()->setValue(
+                SiteConfig::PARAM_FOOTER_COMPANY_DESCRIPTION,
+                $data[EditDesignForm::FIELD_FOOTER_COMPANY_DESCRIPTION]
+            );
+
             $this->getConfig()->setEntityManager($this->getEntityManager());
             $this->getConfig()->save();
+
+            $this->cacheReset();
 
             $this->redirectToRoute('admin_settings_design');
         }

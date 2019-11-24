@@ -26,7 +26,8 @@ class AddApplicForOfferDocumentForm extends AbstractType
             ])
 
             ->add('clientMail', EmailType::class, [
-                'label' => 'Ваш электронный адрес:'
+                'label' => 'Ваш электронный адрес:',
+                'required' => false
             ])
         ;
 

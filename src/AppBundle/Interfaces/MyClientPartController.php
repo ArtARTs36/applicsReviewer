@@ -25,8 +25,10 @@ class MyClientPartController extends MyController
     public function render($view, array $parameters = [], Response $response = null)
     {
         $parameters['offerDocuments'] = $this->getListOfferDocuments();
+        $parameters['offerDocuments'] = $this->getListOfferDocuments();
         $parameters['worksBlock'] = $this->getAllWorks();
 
         return parent::render($view, $parameters, $response);
     }
+
 }

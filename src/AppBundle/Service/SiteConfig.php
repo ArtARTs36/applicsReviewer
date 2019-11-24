@@ -22,6 +22,7 @@ class SiteConfig
     const PARAM_FOOTER_PHONE_2 = 'footer_phone_2';
     const PARAM_FOOTER_EMAIL = 'footer_email';
     const PARAM_FOOTER_ADDRESS = 'footer_address';
+    const PARAM_FOOTER_COMPANY_DESCRIPTION = 'footer_company_description';
 
     public $descriptionParams = [
         self::PARAM_PUSHALL_API_KEY => 'PushAll: Ключ для API',
@@ -36,6 +37,7 @@ class SiteConfig
         self::PARAM_FOOTER_PHONE_2 => 'Низ сайта: номер #2',
         self::PARAM_FOOTER_EMAIL => 'Низ сайта: email',
         self::PARAM_FOOTER_ADDRESS => 'Низ сайта: адрес',
+        self::PARAM_FOOTER_COMPANY_DESCRIPTION=> 'Низ сайта: описание компании',
     ];
 
     public $typeParams = [
