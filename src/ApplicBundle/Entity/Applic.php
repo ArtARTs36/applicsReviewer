@@ -3,6 +3,8 @@
 namespace ApplicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Validator\Constraints as CustomAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="ApplicBundle\Repository\ApplicRepository")
@@ -48,6 +50,10 @@ class Applic
 
     /**
      * @ORM\Column(type="string", length=1000)
+     * @Assert\Length(min=15, max=1500)
+     * @CustomAssert\NoLinksConstraint
+     * @CustomAssert\NoHTMLConstraint
+     * @CustomAssert\RequiredRussianTextConstraint
      */
     private $message;
 
