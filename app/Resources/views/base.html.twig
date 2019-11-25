@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="{{ seoKeywords }}">
     <meta name="description" content="{{ seoDescription }}">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% if seoTitle is defined %}{{ seoTitle }}{% else %}{% block title %}Welcome!{% endblock %}{% endif %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 

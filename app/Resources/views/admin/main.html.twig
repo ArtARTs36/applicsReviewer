@@ -140,6 +140,9 @@ var ROUTE_ADMIN_APPLIC_NEXT_STATUS = '{{ path('admin_applics_status_next_status'
                                 <li class="{% if currentPath == path('admin_guestbook_admin_notes_all') %}active{% endif %}">
                                     <a href="{{ path('admin_guestbook_admin_notes_all') }}"><i class="ti-notepad"></i><span>Отзывы</span></a>
                                 </li>
+                                <li class="{% if currentPath == path('admin_pages_meta_data_all') %}active{% endif %}">
+                                    <a href="{{ path('admin_pages_meta_data_all') }}"><i class="ti-package"></i><span>Стат. Страницы</span></a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
