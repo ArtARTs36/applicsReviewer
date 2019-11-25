@@ -15,6 +15,11 @@ trait SEOForEntityTrait
     private $seoDescription;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
      * @return mixed
      */
     public function getSeoKeywords()
@@ -44,5 +49,21 @@ trait SEOForEntityTrait
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * @param mixed $seoTitle
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\PageMetaData;
 use AppBundle\Entity\Work;
 use AppBundle\Interfaces\MyClientPartController;
 use ApplicBundle\Entity\Applic;
@@ -25,6 +26,7 @@ class PageController extends MyClientPartController
     {
         return $this->render('ClientPart/Pages/homepage.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
+            self::OBJ_GET_SEO_STATIC_ID => PageMetaData::ID_HOMEPAGE,
         ]);
     }
 
@@ -35,7 +37,8 @@ class PageController extends MyClientPartController
 
         return $this->render('@App/ClientPart/Pages/Services/documents.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
-            'docs' => $docs
+            'docs' => $docs,
+            self::OBJ_GET_SEO_STATIC_ID => PageMetaData::ID_OFFER_DOCUMENT_ALL
         ]);
     }
 
@@ -48,8 +51,7 @@ class PageController extends MyClientPartController
         return $this->render('@App/ClientPart/Pages/Services/Works/family.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
             'work' => $work,
-            'seoKeywords' => $work->getSeoKeywords(),
-            'seoDescription' => $work->getSeoDescription(),
+            self::OBJ_GET_SEO_VALUES => 'work'
         ]);
     }
 
@@ -106,7 +108,8 @@ class PageController extends MyClientPartController
         return $this->render('@App/ClientPart/Pages/Services/document.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
             'doc' => $doc,
-            'addApplicForm' => $form->createView()
+            'addApplicForm' => $form->createView(),
+            self::OBJ_GET_SEO_VALUES => 'doc'
         ]);
     }
 
@@ -135,6 +138,7 @@ class PageController extends MyClientPartController
         return $this->render('@App/ClientPart/Pages/callback.html.twig', [
             'addApplicForm' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            self::OBJ_GET_SEO_STATIC_ID => PageMetaData::ID_CALL_BACK
         ]);
     }
 }

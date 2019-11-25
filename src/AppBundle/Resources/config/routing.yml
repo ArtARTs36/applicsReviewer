@@ -50,3 +50,10 @@ admin_works_service_edit:
   path: /admin/works/service/{id}/
   defaults: { _controller: AppBundle:WorkAdmin:editService}
 
+admin_pages_meta_data_all:
+  path: /admin/pages-metadata/
+  defaults: { _controller: AppBundle:PageMetaData:getViewAllPages}
+
+admin_pages_meta_data_edit:
+  path: /admin/pages-metadata/{id}/
+  defaults: { _controller: AppBundle:PageMetaData:editPage}

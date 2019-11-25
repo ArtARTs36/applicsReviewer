@@ -2,6 +2,7 @@
 
 namespace GuestBookBundle\Controller;
 
+use AppBundle\Entity\PageMetaData;
 use AppBundle\Interfaces\MyClientPartController;
 use GuestBookBundle\Entity\Note;
 use GuestBookBundle\Form\AddGuestBookNoteForm;
@@ -45,7 +46,8 @@ class GuestBookController extends MyClientPartController
         return $this->render('@GuestBook/ClientPart/home.html.twig', [
             'notes' => $notes,
             'form' => $form->createView(),
-            'middleRating' => $middleRating
+            'middleRating' => $middleRating,
+            self::OBJ_GET_SEO_STATIC_ID => PageMetaData::ID_GUEST_BOOK_ALL,
         ]);
     }
 
