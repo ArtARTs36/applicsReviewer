@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Service\SEO\SEOForEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Work
 {
+    use SEOForEntityTrait;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

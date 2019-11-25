@@ -2,6 +2,7 @@
 
 namespace ApplicBundle\Form;
 
+use AppBundle\Service\SEO\SEOFieldsForFormBuilder;
 use ApplicBundle\Entity\OfferDocument;
 use ApplicBundle\Entity\OfferDocumentDeliveryMethod;
 use ApplicBundle\Entity\OfferDocumentRequiredDoc;
@@ -40,6 +41,8 @@ class AddOfferDocumentForm extends AbstractType
                 'label' => 'Стоимость:'
             ])
         ;
+
+        SEOFieldsForFormBuilder::appendFieldsForBuilder($builder);
 
         $builder
             // ...

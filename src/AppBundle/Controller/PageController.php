@@ -48,6 +48,8 @@ class PageController extends MyClientPartController
         return $this->render('@App/ClientPart/Pages/Services/Works/family.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
             'work' => $work,
+            'seoKeywords' => $work->getSeoKeywords(),
+            'seoDescription' => $work->getSeoDescription(),
         ]);
     }
 

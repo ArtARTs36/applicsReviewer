@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Work;
 use AppBundle\Entity\WorkService;
 use AppBundle\Helper\IconHelper;
+use AppBundle\Service\SEO\SEOFieldsForFormBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,6 +24,7 @@ class EditWorkForm extends AbstractType
     {
         $builder->add(self::FIELD_NAME, null, ['label' => 'Название']);
         $builder->add(self::FIELD_URL, null, ['label' => 'Относительный путь: "/ugolovnoe"']);
+        SEOFieldsForFormBuilder::appendFieldsForBuilder($builder);
 
         $builder->add('save', SubmitType::class, [
             'label' => 'Отправить',
