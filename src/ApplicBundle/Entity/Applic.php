@@ -3,6 +3,8 @@
 namespace ApplicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Validator\Constraints as CustomAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="ApplicBundle\Repository\ApplicRepository")
@@ -28,16 +30,19 @@ class Applic
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=3, max=100)
      */
     private $clientName;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Length(min=3, max=100)
      */
     private $clientMail;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=9, max=20)
      */
     private $clientPhone;
 
@@ -48,6 +53,10 @@ class Applic
 
     /**
      * @ORM\Column(type="string", length=1000)
+     * @Assert\Length(min=15, max=1500)
+     * @CustomAssert\NoLinksConstraint
+     * @CustomAssert\NoHTMLConstraint
+     * @CustomAssert\RequiredRussianTextConstraint
      */
     private $message;
 

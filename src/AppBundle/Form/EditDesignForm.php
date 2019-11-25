@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,6 +14,7 @@ class EditDesignForm extends AbstractType
     const FIELD_FOOTER_CONTACT_PHONE_2 = 'footer_phone_2';
     const FIELD_FOOTER_ADDRESS = 'footer_address';
     const FIELD_FOOTER_EMAIL = 'footer_email';
+    const FIELD_FOOTER_COMPANY_DESCRIPTION = 'footer_company_description';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,6 +22,7 @@ class EditDesignForm extends AbstractType
         $builder->add(self::FIELD_FOOTER_EMAIL, null, ['label' => 'Футер. Электронный адрес']);
         $builder->add(self::FIELD_FOOTER_CONTACT_PHONE_1, null, ['label' => 'Футер. Номер телефона #1']);
         $builder->add(self::FIELD_FOOTER_CONTACT_PHONE_2, null, ['label' => 'Футер. Номер телефона #2']);
+        $builder->add(self::FIELD_FOOTER_COMPANY_DESCRIPTION, TextareaType::class, ['label' => 'Футер. Описание компании']);
 
         $builder->add('save', SubmitType::class, [
             'label' => 'Отправить',

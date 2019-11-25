@@ -1,9 +1,9 @@
 {% block body %}
     <div id="wrapper">
         <div id="container" class="container">
-            <section class="section pb-3 text-center">
+            <section class="section pb-3 text-center" id="our-team">
                 <h1 class="section-heading h1 pt-4">Наша команда</h1>
-                <p class="section-description">Возможно какой-нибудь текст</p>
+                <!--<p class="section-description">Возможно какой-нибудь текст</p>-->
 
                 <div class="row">
                     <div class="col-md-6">
@@ -11,13 +11,13 @@
                             <div class="card-back info-color">
                             </div>
                             <div class="avatar mx-auto white"><img
-                                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg"
+                                        src="{{asset('assets/images/team/1.png')}}"
                                         alt="avatar mx-auto white" class="rounded-circle img-fluid">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title mt-1">Имя Имя</h4>
+                                <h4 class="card-title mt-1">Екатерина Сергушина</h4>
                                 <hr>
-                                <p><i class="fas fa-quote-left"></i> Текст текст текст</p>
+                                <p><i class="fas fa-quote-left"></i> Обучалась по специальности «юриспруденция» в Институте экономики и права, который окончила в 2010 году. После окончания института решила применить свои знания в страховании, и данная отрасль затянула меня на долгие 5 лет. С 2015 года занималась частной практикой, затем решила применить полученный опыт исключительно в составлении юридических документов.</p>
                             </div>
 
                         </div>
@@ -29,14 +29,16 @@
                             <div class="card-back deep-purple lighten-2"></div>
 
                             <div class="avatar mx-auto white"><img
-                                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                                        src="{{asset('assets/images/team/2.jpg')}}"
                                         alt="avatar mx-auto white" class="rounded-circle img-fluid">
                             </div>
 
                             <div class="card-body">
-                                <h4 class="card-title mt-1">Имя Имя</h4>
+                                <h4 class="card-title mt-1">Петренко Наталья</h4>
                                 <hr>
-                                <p><i class="fas fa-quote-left"></i> Текст текст</p>
+                                <p><i class="fas fa-quote-left"></i> В 2016 году получила диплом бакалавра, а в 2018 году диплом магистра. Еще во время учебы начала работать по специальности, на данный момент работаю в юридическом центре «Территория права». Профессиональный медиатор.
+
+                                    «Я считаю, что построение успешной карьеры юриста предполагает еще и наличие определенных личностных качеств: внимательность, умение убедить собеседника в своей правоте.»</p>
                             </div>
 
                         </div>

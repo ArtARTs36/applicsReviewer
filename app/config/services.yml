@@ -36,6 +36,11 @@ services:
     UserBundle\Service\:
         resource: '../../src/UserBundle/Service'
         arguments: [ '@service_container', '@security.authentication.manager', '@security.token_storage' ]
+#
+#    validator.no_links_constraint:
+#        class: AppBundle\Validator\Constraints\NoLinksConstraintValidator
+#        tags:
+#            - { name: validator.constraint_validator, alias: no_links_constraint }
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

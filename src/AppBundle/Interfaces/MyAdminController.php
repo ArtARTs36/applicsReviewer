@@ -88,4 +88,29 @@ class MyAdminController extends MyController
 
         return parent::render($view, $parameters, $response);
     }
+
+    public function cacheReset()
+    {
+        $dir = '../var/cache/prod';
+        if (file_exists($dir)) {
+            $this->recursiveRemove($dir);
+        }
+    }
+
+    public function recursiveRemove($path)
+    {
+        if (is_file($path)) {
+            return unlink($path);
+        }
+
+        if (is_dir($path)) {
+            foreach (scandir($path) as $p) {
+                if (($p != '.') && ($p != '..')) {
+                    $this->recursiveRemove($path . DIRECTORY_SEPARATOR . $p);
+                }
+            }
+            return rmdir($path);
+        }
+        return false;
+    }
 }

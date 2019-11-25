@@ -3,6 +3,8 @@
 namespace GuestBookBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Validator\Constraints as CustomAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Модель для отзыва
@@ -32,6 +34,11 @@ class Note
 
     /**
      * @ORM\Column(type="string", length=250)
+     * @Assert\NotBlank
+     * @Assert\Length(min=15, max=1500)
+     * @CustomAssert\NoLinksConstraint
+     * @CustomAssert\NoHTMLConstraint
+     * @CustomAssert\RequiredRussianTextConstraint
      */
     private $message;
 
@@ -49,6 +56,11 @@ class Note
      * @ORM\Column(type="boolean")
      */
     private $active;
+
+    /**
+     * @ORM\Column(type="string", length=250)
+     */
+    private $IP;
 
     /**
      * @return mixed
@@ -144,5 +156,21 @@ class Note
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIP()
+    {
+        return $this->IP;
+    }
+
+    /**
+     * @param mixed $IP
+     */
+    public function setIP($IP)
+    {
+        $this->IP = $IP;
     }
 }

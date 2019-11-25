@@ -24,6 +24,7 @@ class GuestBookController extends MyClientPartController
             $newNote = $form->getData();
             $newNote->setCreated(new \DateTime());
             $newNote->setActive(false);
+            $newNote->setIP($_SERVER['REMOTE_ADDR']);
 
             $this->saveEntity($newNote);
 

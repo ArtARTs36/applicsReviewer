@@ -21,7 +21,7 @@
                 {% for item in docs %}
                     <tr>
                         <td><a href="{{ path('page_services_document', {'id': item.id}) }}">{{ item.name }}</td>
-                        <td>{{ item.price }} руб.</td>
+                        <td>от {{ item.price }} руб.</td>
                     </tr>
                 {% endfor %}
                 </tbody>

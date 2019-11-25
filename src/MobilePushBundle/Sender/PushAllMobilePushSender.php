@@ -36,7 +36,7 @@ class PushAllMobilePushSender extends MobilePushInterface
     public function push($title, $message, $url = null)
     {
         $array = [
-            "type" => "self",
+            "type" => "broadcast",
             "id" => $this->applicationId,
             "key" => $this->apiKey,
             "text" => $message,
