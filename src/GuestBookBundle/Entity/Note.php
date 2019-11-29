@@ -58,7 +58,7 @@ class Note
     private $active;
 
     /**
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=15)
      */
     private $IP;
 

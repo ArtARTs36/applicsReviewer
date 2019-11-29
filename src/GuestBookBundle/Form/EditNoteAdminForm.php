@@ -2,9 +2,6 @@
 
 namespace GuestBookBundle\Form;
 
-use AppBundle\Entity\Work;
-use AppBundle\Entity\WorkService;
-use AppBundle\Helper\IconHelper;
 use GuestBookBundle\Entity\Note;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EditNoteAdminForm extends AbstractType
 {
@@ -25,7 +23,7 @@ class EditNoteAdminForm extends AbstractType
     {
         $builder->add(self::FIELD_NAME, null, ['label' => 'Имя']);
 
-        $builder->add(self::FIELD_MESSAGE, null, ['label' => 'Содержание']);
+        $builder->add(self::FIELD_MESSAGE, TextareaType::class, ['label' => 'Содержание']);
 
         $builder->add('rating', ChoiceType::class,
             [
