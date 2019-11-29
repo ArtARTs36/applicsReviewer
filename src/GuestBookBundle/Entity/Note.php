@@ -33,7 +33,7 @@ class Note
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=1500)
      * @Assert\NotBlank
      * @Assert\Length(min=15, max=1500)
      * @CustomAssert\NoLinksConstraint

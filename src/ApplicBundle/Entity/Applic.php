@@ -52,7 +52,7 @@ class Applic
     private $IP;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="string", length=1500)
      * @Assert\Length(min=15, max=1500)
      * @CustomAssert\NoLinksConstraint
      * @CustomAssert\NoHTMLConstraint
