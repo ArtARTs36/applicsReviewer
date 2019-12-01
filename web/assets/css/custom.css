@@ -45,3 +45,19 @@
         font-weight: bold; font-size: 1.4em
     }
 }
+
+.icon-alt {
+    border-radius:5px;
+    border:5px;
+    background: #eee;
+    padding:5px;
+}
+
+.card-wrapper .card-back{height:200px;overflow:hidden}
+.card-wrapper .card-back img{vertical-align:middle}
+.card-wrapper .avatar{display:block;margin-top:-60px;overflow:hidden;width:120px}
+.card-wrapper .avatar img{border:5px solid #fff;background:none repeat scroll 0 0 #fff;width:100%}
+.card-wrapper .card-rotating{height:100%;transform-style:preserve-3d;transition:.5s}
+.card-wrapper .card-rotating .face{width:100%;position:absolute;background:#fff;-webkit-backface-visibility:hidden;backface-visibility:hidden;z-index:2}.card-wrapper .card-rotating.flipped{transform:rotateY(180deg)}.card-wrapper .card-rotating .front{z-index:1}.card-wrapper .card-rotating .back{transform:rotateY(-180deg)}.card-wrapper .card-rotating .back,.card-wrapper .card-rotating .front{transition:1s}
+.testimonial-card .card-back{overflow:hidden;height:120px;border-top-left-radius:.25rem;border-top-right-radius:.25rem}.testimonial-card .avatar{border-radius:50%;width:120px;margin-top:-60px;overflow:hidden;border:5px solid #fff}.testimonial-card .avatar img{width:100%}.testimonial-card .card-body{text-align:center}
+.dropdown .dropdown-menu,.dropleft .dropdown-menu,.dropright .dropdown-menu,.dropup .dropdown-menu{padding:.5rem}.dropdown .dropdown-menu.dropdown-primary .dropdown-item.active,.dropdown .dropdown-menu.dropdown-primary .dropdown-item:active,.dropdown .dropdown-menu.dropdown-primary .dropdown-item:hover,.dropleft .dropdown-menu.dropdown-primary .dropdown-item.active,.dropleft .dropdown-menu.dropdown-primary .dropdown-item:active,.dropleft .dropdown-menu.dropdown-primary .dropdown-item:hover,.dropright .dropdown-menu.dropdown-primary .dropdown-item.active,.dropright .dropdown-menu.dropdown-primary .dropdown-item:active,.dropright .dropdown-menu.dropdown-primary .dropdown-item:hover,.dropup .dropdown-menu.dropdown-primary .dropdown-item.active,.dropup .dropdown-menu.dropdown-primary .dropdown-item:active,.dropup .dropdown-menu.dropdown-primary .dropdown-item:hover{background-color:#4285f4!important;box-shadow:0 5px 11px 0 rgba(0,0,0,.18),0 4px 15px 0 rgba(0,0,0,.15);border-radius:.125rem}

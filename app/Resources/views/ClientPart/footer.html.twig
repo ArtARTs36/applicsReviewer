@@ -49,7 +49,7 @@
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                 {% for item in offerDocuments %}
                     <p>
-                        <a href="#">{{ item.name | slice (0, 35)}}..</a>
+                        <a href="{{ path('page_services_document', {'id': item.id}) }}">{{ item.name | slice (0, 35)}}..</a>
                     </p>
                 {% endfor %}
 
