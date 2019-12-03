@@ -39,9 +39,6 @@ class UloginController extends MyClientPartController
 
         try {
             $token = $this->checkULoginToken($request->request->get('token') ?? null);
-            if ($token === null) {
-                return $this->redirectToRoute('admin_index');
-            }
             $data = $this->getResponse($token);
             $this->checkResponseData($data ?? null);
 
@@ -62,8 +59,7 @@ class UloginController extends MyClientPartController
             }
 
         } catch (\LogicException $exception) {
-            dump($exception);
-            //return $this->redirectToRoute('home');
+            return $this->redirectToRoute('admin_index');
         }
     }
 
